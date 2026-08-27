@@ -376,11 +376,9 @@ function createTankGroups(root) {
 
   groups.roofTrussGroup = new THREE.Group();
   groups.roofTrussGroup.name = "roofTrussGroup";
-  groups.roofBeamGroup = new THREE.Group();
-  groups.roofBeamGroup.name = "roofBeamGroup";
   groups.roofCleatGroup = new THREE.Group();
   groups.roofCleatGroup.name = "roofCleatGroup";
-  groups.roofSupportGroup.add(groups.roofTrussGroup, groups.roofBeamGroup, groups.roofCleatGroup);
+  groups.roofSupportGroup.add(groups.roofTrussGroup, groups.roofCleatGroup);
 
   groups.manholeGroup = new THREE.Group();
   groups.manholeGroup.name = "manholeGroup";
@@ -507,21 +505,17 @@ function createInternalStaySystem(ctx) {
 function createRoofSupportSystem(ctx) {
   const { groups, kit, halfWidth, halfDepth, roofY } = ctx;
   const y = roofY - .3;
-  const xSeams = Array.from({ length: TANK_SPEC.tankPanelsX + 1 }, (_, index) => -halfWidth + index * TANK_SPEC.panelWidth);
-  const zSeams = Array.from({ length: TANK_SPEC.tankPanelsZ + 1 }, (_, index) => -halfDepth + index * TANK_SPEC.panelWidth);
-  zSeams.forEach((z) => groups.roofBeamGroup.add(boxBeamBetween(new THREE.Vector3(-halfWidth, y, z), new THREE.Vector3(halfWidth, y, z), .065, kit.edge)));
-  xSeams.forEach((x) => groups.roofBeamGroup.add(boxBeamBetween(new THREE.Vector3(x, y, -halfDepth), new THREE.Vector3(x, y, halfDepth), .065, kit.edge)));
-  [-1.4, 1.4].forEach((x, index) => {
-    const ridge = new THREE.Vector3(x, roofY - .2, 0);
+  // Keep the roof support legible but deliberately minimal: two parallel L-angle
+  // members support the underside without recreating a full square roof frame.
+  [-halfWidth * .48, halfWidth * .48].forEach((x, index) => {
     const front = new THREE.Vector3(x, y, halfDepth - .16);
     const back = new THREE.Vector3(x, y, -halfDepth + .16);
-    groups.roofTrussGroup.add(createAngleMember({ start: front, end: ridge, legA: .1, legB: .1, thickness: .018, material: kit.edge }));
-    groups.roofTrussGroup.add(createAngleMember({ start: back, end: ridge, legA: .1, legB: .1, thickness: .018, material: kit.edge }));
+    const member = createAngleMember({ start: front, end: back, legA: .1, legB: .1, thickness: .018, material: kit.materials.roofSupportMaterial });
+    member.name = `minimal roof support L-angle ${index + 1}`;
+    groups.roofTrussGroup.add(member);
     const frontCleat = createCleat("roof", kit); frontCleat.position.copy(front); frontCleat.name = `roof cleat front ${index + 1}`; groups.roofCleatGroup.add(frontCleat);
     const backCleat = createCleat("roof", kit); backCleat.position.copy(back); backCleat.name = `roof cleat back ${index + 1}`; groups.roofCleatGroup.add(backCleat);
-    const ridgeCleat = createCleat("roof", kit); ridgeCleat.position.copy(ridge); ridgeCleat.name = `roof cleat ridge ${index + 1}`; groups.roofCleatGroup.add(ridgeCleat);
   });
-  groups.roofTrussGroup.add(boxBeamBetween(new THREE.Vector3(-1.4, roofY - .2, 0), new THREE.Vector3(1.4, roofY - .2, 0), .07, kit.edge));
 }
 
 function createRoofPanels(ctx) {
@@ -668,16 +662,6 @@ function createTankModel() {
   createAirVent(ctx);
   createPipework(ctx);
 
-  const wallMeshes = [];
-  [groups.lowerWallGroup, groups.upperWallGroup].forEach((wallGroup) => wallGroup.traverse((node) => { if (node.isMesh) wallMeshes.push(node); }));
-  const focusWallGroups = [
-    { group: wallGroups.frontLower, offset: new THREE.Vector3(0, 0, .48) },
-    { group: wallGroups.frontUpper, offset: new THREE.Vector3(0, 0, .48) },
-    { group: wallGroups.rightLower, offset: new THREE.Vector3(.48, 0, 0) },
-    { group: wallGroups.rightUpper, offset: new THREE.Vector3(.48, 0, 0) }
-  ];
-  const focusWallMeshes = [];
-  focusWallGroups.forEach(({ group }) => group.traverse((node) => { if (node.isMesh) focusWallMeshes.push(node); }));
   const entries = [];
   const addEntry = (group, key, start, end, from, explode, options = {}) => {
     const home = group.position.clone();
@@ -731,11 +715,7 @@ function createTankModel() {
   root.userData.groups = groups;
   root.userData.entries = entries;
   root.userData.wallGroups = wallGroups;
-  root.userData.wallMeshes = wallMeshes;
-  root.userData.focusWallGroups = focusWallGroups;
-  root.userData.focusWallMeshes = focusWallMeshes;
   root.userData.exploded = false;
-  root.userData.focused = false;
   root.userData.demoSpec = TANK_SPEC;
   root.userData.roofY = roofY;
   setAssemblyProgress(entries, 1);
@@ -787,37 +767,6 @@ function setExploded(root, exploded, animate = true) {
   root.userData.cameraRig?.setExploded(exploded, animate);
 }
 
-function setFocusMode(root, focused, animate = true) {
-  root.userData.focused = focused;
-  const focusMeshes = root.userData.focusWallMeshes || [];
-  const focusGroups = root.userData.focusWallGroups || [];
-  const moveWalls = (withAnimation) => focusGroups.forEach(({ group, offset }) => {
-    const home = group.userData.home || new THREE.Vector3();
-    const target = focused ? home.clone().add(offset) : home;
-    if (withAnimation && !reducedMotion) {
-      gsap.to(group.position, { x: target.x, y: target.y, z: target.z, duration: .65, ease: "power2.out", overwrite: true });
-    } else group.position.copy(target);
-  });
-  const apply = () => focusMeshes.forEach((mesh) => {
-    if (!mesh.userData.focusMaterial) mesh.userData.focusMaterial = mesh.material.clone();
-    mesh.material = mesh.userData.focusMaterial;
-    mesh.material.transparent = focused;
-    mesh.material.opacity = focused ? .12 : 1;
-    mesh.material.depthWrite = !focused;
-  });
-  if (animate && !reducedMotion) {
-    focusMeshes.forEach((mesh) => {
-      if (!mesh.userData.focusMaterial) mesh.userData.focusMaterial = mesh.material.clone();
-      mesh.material = mesh.userData.focusMaterial;
-      gsap.to(mesh.material, { opacity: focused ? .12 : 1, duration: .65, ease: "power2.out", overwrite: true, onStart: () => { mesh.material.transparent = true; mesh.material.depthWrite = !focused; }, onComplete: () => { mesh.material.transparent = focused; mesh.material.depthWrite = !focused; } });
-    });
-    moveWalls(true);
-  } else {
-    apply();
-    moveWalls(false);
-  }
-}
-
 function addLighting(scene) {
   scene.add(new THREE.HemisphereLight(0xdfe7e6, 0x111718, 1.65));
   const key = new THREE.DirectionalLight(0xffffff, 2.1);
@@ -857,14 +806,6 @@ function applyValidationMode(root, mode) {
     }
     root.position.y = .25;
     root.scale.setScalar(2.35);
-    return;
-  }
-  if (mode === "internal" || mode === "structure") {
-    hideTopLevelGroups();
-    groups.baseFrameGroup.visible = true;
-    groups.internalStayGroup.visible = true;
-    groups.roofSupportGroup.visible = true;
-    root.scale.setScalar(.9);
     return;
   }
   if (mode === "roof" || mode === "roof-underside") {
@@ -924,10 +865,6 @@ function configureValidationCamera(mode, camera, controls, root) {
     camera.position.set(-6.8, roofTarget.y + 3.25, 6.2);
     controls.target.copy(roofTarget).add(new THREE.Vector3(-.2, -.05, 0));
     return;
-  }
-  if (mode === "internal" || mode === "structure") {
-    camera.position.set(7.2, 3.8, 8.2);
-    controls.target.set(0, .45, 0);
   }
 }
 
@@ -1039,36 +976,12 @@ function bindSceneControls(stage, root) {
     button.hidden = false;
     button.addEventListener("click", () => {
       const exploded = !root.userData.exploded;
-      if (root.userData.focused) {
-        setFocusMode(root, false, true);
-        scope.querySelectorAll("[data-structure-button]").forEach((control) => {
-          control.setAttribute("aria-pressed", "false");
-          control.classList.remove("is-active");
-        });
-      }
       setAssembled(root);
       setExploded(root, exploded, true);
       scope.querySelectorAll("[data-explode-button]").forEach((control) => {
         control.setAttribute("aria-pressed", String(exploded));
         control.classList.toggle("is-active", exploded);
       });
-    });
-  });
-  scope.querySelectorAll("[data-structure-button]").forEach((button) => {
-    button.hidden = false;
-    button.addEventListener("click", () => {
-      const focused = !root.userData.focused;
-      if (focused) {
-        setAssembled(root);
-        setExploded(root, false, false);
-        scope.querySelectorAll("[data-explode-button]").forEach((control) => {
-          control.setAttribute("aria-pressed", "false");
-          control.classList.remove("is-active");
-        });
-      }
-      setFocusMode(root, focused, true);
-      button.setAttribute("aria-pressed", String(focused));
-      button.classList.toggle("is-active", focused);
     });
   });
 }
@@ -1185,5 +1098,5 @@ function setLocale(locale) {
   });
 }
 
-window.WINKO3D = { heroes: [], assemblies: [], createTankModel, setExploded, setFocusMode, initHeroStages, initAssemblyStages, setLocale, TANK_SPEC, PANEL_FACE };
+window.WINKO3D = { heroes: [], assemblies: [], createTankModel, setExploded, initHeroStages, initAssemblyStages, setLocale, TANK_SPEC, PANEL_FACE };
 window.dispatchEvent(new Event("winko:3d-ready"));
