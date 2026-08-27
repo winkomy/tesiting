@@ -1,7 +1,7 @@
 (function () {
   "use strict";
 
-  const LOGO = "index_html_files/winko-logo-header-approved.png";
+  const LOGO = "index_html_files/winko-logo-header.png?v=20260827-header3";
   const HEADER_LOGO = LOGO;
   const WHATSAPP = "https://wa.me/60105161368";
   const PHONE = "+603-8727 7540";
@@ -521,3 +521,4 @@
 
   renderShell(); setupNavigation(); setupReveal(); setupCounters(); setupHeroTank3D(); setupTankAssembly3D(); setupProductSwitcher(); setupAssemblyFallback(); setupNewsHub(); setupNewsArticle(); setupNewsFilters(); setupProjectGallery(); setupForms(); setupProductDetail(); addUtilityLinks(); setupSiteLanguage(); ensureCanonical();
 })();
+
