@@ -12,7 +12,7 @@
     span: { src: "index_html_files/span-approval-logo.png", width: 600, height: 600 }
   };
   const LANGUAGE_KEY = "winko-language";
-  const SITE_ORIGIN = "https://www.winko.my";
+  const SITE_ORIGIN = "https://winko.my";
   const SITE_LOGO = `${SITE_ORIGIN}/${LOGO}`;
   const PAGE_SHARE_IMAGES = { home: "index_html_files/opengraph.webp", about: "index_html_files/about-winko-photo-1.png", products: "index_html_files/269.png", services: "index_html_files/511.webp", projects: "index_html_files/1046.webp", news: "index_html_files/responsible-manufacturing-2026.png", newsArticle: "index_html_files/singapore-factory-visit-2026.png", contact: "index_html_files/opengraph.webp" };
   const I18N = window.WINKO_I18N || { languages: ["en"], text: { en: {} }, meta: {}, threeD: {} };
@@ -20,6 +20,17 @@
   const sourceAttributes = new WeakMap();
   const reducedMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
   window.WINKO_3D_TEXT = I18N.threeD.en;
+
+  function protectStagingIndexing() {
+    if (window.location.hostname.toLowerCase() !== "winkomy.github.io") return;
+    let robots = document.head.querySelector('meta[name="robots"]');
+    if (!robots) {
+      robots = document.createElement("meta");
+      robots.name = "robots";
+      document.head.appendChild(robots);
+    }
+    robots.content = "noindex, nofollow";
+  }
 
   const products = {
     hdg: {
@@ -547,5 +558,5 @@
 
   function ensureCanonical() { updateMetadata(currentLanguage()); }
 
-  renderShell(); setupNavigation(); setupReveal(); setupCounters(); setupHeroTank3D(); setupTankAssembly3D(); setupProductSwitcher(); setupAssemblyFallback(); setupNewsHub(); setupNewsArticle(); setupNewsFilters(); setupProjectGallery(); setupForms(); setupProductDetail(); addUtilityLinks(); setupSiteLanguage(); ensureCanonical();
+  protectStagingIndexing(); renderShell(); setupNavigation(); setupReveal(); setupCounters(); setupHeroTank3D(); setupTankAssembly3D(); setupProductSwitcher(); setupAssemblyFallback(); setupNewsHub(); setupNewsArticle(); setupNewsFilters(); setupProjectGallery(); setupForms(); setupProductDetail(); addUtilityLinks(); setupSiteLanguage(); ensureCanonical();
 })();

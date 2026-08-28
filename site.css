@@ -693,7 +693,10 @@ body.is-lightbox-open{overflow:hidden}
 .project-lightbox-nav{position:absolute;top:50%;z-index:2;transform:translateY(-50%)}
 .project-lightbox-nav--prev{left:.5rem}.project-lightbox-nav--next{right:.5rem}
 .project-lightbox-close{top:-3.5rem}
-.market-map{min-height:22rem}
+.global-reach-heading h2{max-width:none;font-size:clamp(2.75rem,12.2vw,3.35rem);letter-spacing:-.065em}
+.market-map{min-height:0}
+.market-marker text{display:none}
+.market-list{padding:1rem 1.1rem}
 .article-card figure{height:13rem}
 .footer-main{grid-template-columns:1fr;padding:3rem 0 2rem}
 .footer-approval-logos{gap:.8rem;padding:.5rem .6rem}
