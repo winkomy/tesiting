@@ -136,6 +136,32 @@
   ];
 
   triples.push(
+    ["FACTORY VISIT", "LAWATAN KILANG", "工厂参观"],
+    ["QUALITY ASSURANCE", "JAMINAN KUALITI", "质量保证"],
+    ["JKR Visit to FRP Tank Factory", "Lawatan JKR ke Kilang Tangki FRP", "JKR 参观 FRP 水箱工厂"],
+    ["WINKO welcomed representatives from JKR for a factory visit focusing on FRP water tank manufacturing, production processes and product applications.", "WINKO mengalu-alukan wakil JKR untuk lawatan kilang yang memberi tumpuan kepada pembuatan tangki air FRP, proses pengeluaran dan aplikasi produk.", "WINKO 欢迎 JKR 代表参观工厂，了解 FRP 水箱制造、生产流程及产品应用。"],
+    ["JKR representatives during an FRP water tank factory visit", "Wakil JKR semasa lawatan kilang tangki air FRP", "JKR 代表参观 FRP 水箱工厂"],
+    ["WINKO was pleased to welcome representatives from Jabatan Kerja Raya (JKR) for a visit to the FRP water tank manufacturing facility.", "WINKO berbesar hati mengalu-alukan wakil daripada Jabatan Kerja Raya (JKR) untuk melawat kemudahan pembuatan tangki air FRP.", "WINKO 很高兴欢迎 Jabatan Kerja Raya（JKR）代表参观 FRP 水箱制造设施。"],
+    ["The visit provided an opportunity to observe the manufacturing environment, review FRP water tank production processes and exchange technical knowledge relating to water storage solutions.", "Lawatan ini memberi peluang untuk melihat persekitaran pembuatan, meninjau proses pengeluaran tangki air FRP dan bertukar pengetahuan teknikal berkaitan penyelesaian penyimpanan air.", "此次参观让来访者了解制造环境、查看 FRP 水箱生产流程，并交流储水解决方案相关的技术知识。"],
+    ["Factory visits such as this allow closer communication between industry professionals and provide valuable opportunities to share practical manufacturing experience.", "Lawatan kilang seperti ini membolehkan komunikasi yang lebih rapat antara profesional industri serta membuka peluang berharga untuk berkongsi pengalaman pembuatan secara praktikal.", "此类工厂参观有助于行业专业人士加强沟通，并提供分享实际制造经验的宝贵机会。"],
+    ["We appreciate the representatives from JKR for taking the time to visit the facility.", "Kami menghargai wakil JKR yang meluangkan masa untuk melawat kemudahan kami.", "感谢 JKR 代表抽出时间参观我们的设施。"],
+    ["SIRIM Audit on WINKO Stainless Steel Tank", "Audit SIRIM ke atas Tangki Keluli Tahan Karat WINKO", "SIRIM 审核 WINKO 不锈钢水箱"],
+    ["A SIRIM audit was conducted on the WINKO stainless steel water tank as part of our ongoing focus on product quality, manufacturing control and compliance.", "Audit SIRIM telah dijalankan ke atas tangki air keluli tahan karat WINKO sebagai sebahagian daripada tumpuan berterusan kami terhadap kualiti produk, kawalan pembuatan dan pematuhan.", "SIRIM 对 WINKO 不锈钢水箱进行了审核，这是我们持续重视产品质量、制造控制及合规的一部分。"],
+    ["SIRIM audit inspection of a WINKO stainless steel sectional water tank", "Pemeriksaan audit SIRIM terhadap tangki air seksyen keluli tahan karat WINKO", "SIRIM 审核检查 WINKO 不锈钢组合式水箱"],
+    ["WINKO recently underwent a SIRIM audit involving our stainless steel water tank system.", "WINKO baru-baru ini menjalani audit SIRIM yang melibatkan sistem tangki air keluli tahan karat kami.", "WINKO 最近接受了涉及不锈钢水箱系统的 SIRIM 审核。"],
+    ["The audit included inspection and assessment activities relating to the product and manufacturing process as part of our ongoing commitment to quality assurance and consistent manufacturing standards.", "Audit tersebut merangkumi aktiviti pemeriksaan dan penilaian berkaitan produk serta proses pembuatan sebagai sebahagian daripada komitmen berterusan kami terhadap jaminan kualiti dan piawaian pembuatan yang konsisten.", "审核包括对产品及制造流程的检查和评估，是我们持续履行质量保证及保持一致制造标准承诺的一部分。"],
+    ["Our team supported the inspection process by providing access to the tank, relevant manufacturing information and the required product measurements.", "Pasukan kami menyokong proses pemeriksaan dengan menyediakan akses kepada tangki, maklumat pembuatan yang berkaitan dan ukuran produk yang diperlukan.", "我们的团队通过提供水箱检查条件、相关制造资料及所需产品尺寸，协助完成检查流程。"],
+    ["Quality control and continuous improvement remain important parts of WINKO's manufacturing operations.", "Kawalan kualiti dan penambahbaikan berterusan kekal sebagai bahagian penting dalam operasi pembuatan WINKO.", "质量控制与持续改进仍是 WINKO 制造运营的重要组成部分。"],
+    ["KPKT Officers Visit WINKO Factory", "Pegawai KPKT Melawat Kilang WINKO", "KPKT 官员参观 WINKO 工厂"],
+    ["WINKO welcomed officers from the Ministry of Housing and Local Government (KPKT) for a factory visit and discussion on our water storage solutions and manufacturing operations.", "WINKO mengalu-alukan pegawai daripada Kementerian Perumahan dan Kerajaan Tempatan (KPKT) untuk lawatan kilang dan perbincangan tentang penyelesaian penyimpanan air serta operasi pembuatan kami.", "WINKO 欢迎住房及地方政府部（KPKT）官员参观工厂，并讨论我们的储水解决方案及制造运营。"],
+    ["KPKT officers during a factory visit and technical discussion with the WINKO team", "Pegawai KPKT semasa lawatan kilang dan perbincangan teknikal bersama pasukan WINKO", "KPKT 官员参观工厂并与 WINKO 团队进行技术交流"],
+    ["WINKO was pleased to welcome officers from the Ministry of Housing and Local Government, Kementerian Perumahan dan Kerajaan Tempatan (KPKT), for a factory visit.", "WINKO berbesar hati mengalu-alukan pegawai daripada Ministry of Housing and Local Government, Kementerian Perumahan dan Kerajaan Tempatan (KPKT), untuk lawatan kilang.", "WINKO 很高兴欢迎住房及地方政府部 Kementerian Perumahan dan Kerajaan Tempatan（KPKT）官员参观工厂。"],
+    ["The visit provided an opportunity for our team to introduce WINKO's manufacturing operations, water storage solutions and production capabilities.", "Lawatan ini memberi peluang kepada pasukan kami untuk memperkenalkan operasi pembuatan, penyelesaian penyimpanan air dan keupayaan pengeluaran WINKO.", "此次参观让我们的团队有机会介绍 WINKO 的制造运营、储水解决方案及生产能力。"],
+    ["The programme also included discussions and knowledge sharing between the visiting officers and the WINKO team.", "Program ini turut merangkumi perbincangan dan perkongsian pengetahuan antara pegawai yang berkunjung dengan pasukan WINKO.", "活动还包括来访官员与 WINKO 团队之间的讨论及知识分享。"],
+    ["We appreciate the KPKT officers for taking the time to visit our facility and engage with our team.", "Kami menghargai pegawai KPKT yang meluangkan masa untuk melawat kemudahan kami dan berinteraksi dengan pasukan kami.", "感谢 KPKT 官员抽出时间参观我们的设施并与团队交流。"],
+  );
+
+  triples.push(
     ["Company developments, project updates and perspectives from WINKO.", "Perkembangan syarikat, kemas kini projek dan pandangan daripada WINKO.", "WINKO 的公司动态、项目更新与行业观点。"],
     ["Explore the latest WINKO company, product, service, project and technical updates.", "Terokai kemas kini terkini WINKO tentang syarikat, produk, perkhidmatan, projek dan aspek teknikal.", "浏览 WINKO 最新的公司动态、产品、服务、项目及技术更新。"],
     ["LATEST UPDATES", "KEMAS KINI TERKINI", "最新动态"],
@@ -290,6 +316,23 @@
   news: { en: ["Water Tank News & Insights | WINKO Malaysia", "Explore WINKO news and insights on water tank manufacturing, factory developments, projects, customer visits and responsible water storage solutions in Malaysia."], ms: ["Berita & Wawasan Tangki Air | WINKO Malaysia", "Terokai berita dan wawasan WINKO tentang pembuatan tangki air, perkembangan kilang, projek, lawatan pelanggan dan penyelesaian penyimpanan air bertanggungjawab di Malaysia."], zh: ["马来西亚水箱新闻与洞察 | WINKO", "了解 WINKO 关于水箱制造、工厂动态、项目、客户来访及马来西亚负责任储水解决方案的新闻与洞察。"] },
   newsResponsible: { en: ["Responsible Manufacturing | WINKO Water Tank Malaysia", "Learn how WINKO continues to improve material efficiency, waste management and responsible manufacturing practices in its Malaysian water tank manufacturing operations."], ms: ["Pembuatan Bertanggungjawab | Tangki Air WINKO Malaysia", "Ketahui bagaimana WINKO terus menambah baik kecekapan bahan, pengurusan sisa dan amalan pembuatan bertanggungjawab dalam operasi pembuatan tangki airnya di Malaysia."], zh: ["负责任制造 | WINKO 马来西亚水箱", "了解 WINKO 如何在马来西亚水箱制造运营中持续改进材料效率、废物管理和负责任的制造实践。"] },
   newsArticle: { en: ["Overseas Client Factory Visit | WINKO Malaysia", "WINKO welcomed an overseas client to our Malaysia factory on 4 August 2026 for a production tour, technical discussion and water tank manufacturing review."], ms: ["Lawatan Kilang Pelanggan Luar Negara | WINKO Malaysia", "WINKO menerima kunjungan pelanggan luar negara ke kilang kami di Malaysia pada 4 Ogos 2026 untuk lawatan pengeluaran, perbincangan teknikal dan tinjauan pembuatan tangki air."], zh: ["海外客户参观工厂 | WINKO 马来西亚", "2026年8月4日，WINKO 在马来西亚工厂接待海外客户，进行生产参观、技术交流及水箱制造了解。"] },
+    newsArticles: {
+      "jkr-frp-tank-factory-visit": {
+        en: ["JKR FRP Tank Factory Visit | WINKO Malaysia", "JKR representatives visited an FRP water tank manufacturing facility for a closer look at production processes, applications and water storage solutions."],
+        ms: ["Lawatan Kilang Tangki FRP JKR | WINKO Malaysia", "Wakil JKR melawat kemudahan pembuatan tangki air FRP untuk melihat dengan lebih dekat proses pengeluaran, aplikasi dan penyelesaian penyimpanan air."],
+        zh: ["JKR 参观 FRP 水箱工厂 | WINKO 马来西亚", "JKR 代表参观 FRP 水箱制造设施，进一步了解生产流程、应用及储水解决方案。"]
+      },
+      "sirim-audit-winko-stainless-steel-tank": {
+        en: ["SIRIM Audit on WINKO Stainless Steel Tank | WINKO", "A SIRIM audit involving the WINKO stainless steel water tank formed part of our ongoing focus on manufacturing quality and product assurance."],
+        ms: ["Audit SIRIM ke atas Tangki Keluli Tahan Karat WINKO | WINKO", "Audit SIRIM yang melibatkan tangki air keluli tahan karat WINKO merupakan sebahagian daripada tumpuan berterusan kami terhadap kualiti pembuatan dan jaminan produk."],
+        zh: ["SIRIM 审核 WINKO 不锈钢水箱 | WINKO", "涉及 WINKO 不锈钢水箱的 SIRIM 审核，是我们持续重视制造质量及产品保证的一部分。"]
+      },
+      "kpkt-factory-visit": {
+        en: ["KPKT Factory Visit | WINKO Malaysia", "WINKO welcomed officers from Kementerian Perumahan dan Kerajaan Tempatan (KPKT) for a factory visit and discussion on water storage solutions."],
+        ms: ["Lawatan Kilang KPKT | WINKO Malaysia", "WINKO mengalu-alukan pegawai daripada Kementerian Perumahan dan Kerajaan Tempatan (KPKT) untuk lawatan kilang dan perbincangan tentang penyelesaian penyimpanan air."],
+        zh: ["KPKT 参观工厂 | WINKO 马来西亚", "WINKO 欢迎 Kementerian Perumahan dan Kerajaan Tempatan（KPKT）官员参观工厂，并讨论储水解决方案。"]
+      }
+    },
     contact: { en: ["Contact WINKO | Water Tank Manufacturer Malaysia", "Contact WINKO in Semenyih, Selangor for water tank products, services and quotations across Malaysia and international markets."], ms: ["Hubungi WINKO | Pengeluar Tangki Air Malaysia", "Hubungi WINKO di Semenyih, Selangor untuk produk tangki air, perkhidmatan dan sebut harga di Malaysia serta pasaran antarabangsa."], zh: ["联系 WINKO | 马来西亚水箱制造商", "联系位于雪兰莪士毛月的 WINKO，获取马来西亚及国际市场的水箱产品、服务与报价。"] },
     productDetail: { en: ["Product | WINKO", "Explore WINKO water storage product information, applications, and technical details."], ms: ["Produk | WINKO", "Terokai maklumat produk penyimpanan air WINKO, aplikasi dan butiran teknikal."], zh: ["产品 | WINKO", "了解 WINKO 储水产品信息、应用及技术详情。"] }
   };
