@@ -391,13 +391,19 @@ function createTankGroups(root) {
 }
 
 function createFoundation(ctx) {
-  const { groups, kit } = ctx;
-  const xPositions = [-2.05, -.68, .68, 2.05];
-  [-.86, .86].forEach((z) => xPositions.forEach((x) => {
-    const block = new THREE.Mesh(new THREE.BoxGeometry(.92, .72, .72), kit.concrete);
-    block.position.set(x, -1.5, z);
-    groups.foundationGroup.add(block);
-  }));
+  const { groups, kit, halfWidth, halfDepth } = ctx;
+  const plinthLength = halfWidth * 2 + .18;
+  const plinthHeight = .72;
+  const plinthDepth = .72;
+  const plinthY = -1.5;
+  const plinthZ = halfDepth * .45;
+  const plinthGeometry = new THREE.BoxGeometry(plinthLength, plinthHeight, plinthDepth);
+  [-plinthZ, plinthZ].forEach((z, index) => {
+    const plinth = new THREE.Mesh(plinthGeometry, kit.concrete);
+    plinth.position.set(0, plinthY, z);
+    plinth.name = `long foundation plinth ${index + 1}`;
+    groups.foundationGroup.add(plinth);
+  });
 }
 
 function createBaseFrame(ctx) {
