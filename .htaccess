@@ -1,0 +1,32 @@
+# Apache 2.4 / Exabytes. Verify AllowOverride and SSL settings before launch.
+DirectoryIndex index.html
+ErrorDocument 404 /404.html
+
+<IfModule mod_rewrite.c>
+RewriteEngine On
+
+# Legacy article names: one permanent hop, including requests to the www host.
+RewriteCond %{HTTP_HOST} ^(?:www\.)?winko\.my(?::\d+)?$ [NC]
+  RewriteRule ^news/(?:singapore-client-factory-visit-2026|overseae-client-factory-visit(?:-2026)?)\.html$ https://winko.my/news/overseas-client-factory-visit-2026.html [R=301,L,NE]
+
+  # Legacy HDG product URL: move the encoded-space filename to the clean product route.
+  RewriteCond %{HTTP_HOST} ^(?:www\.)?winko\.my(?::\d+)?$ [NC]
+  RewriteCond %{THE_REQUEST} \s/+HDG(?:%20|[[:space:]])Panel(?:%20|[[:space:]])Tank\.html(?:[?\s]) [NC]
+  RewriteRule ^HDG(?:%20|[[:space:]])Panel(?:%20|[[:space:]])Tank\.html$ https://winko.my/hdg-panel-tank/ [R=301,L,NE]
+
+# Explicit index.html requests canonicalize to their directory, not vice versa.
+RewriteCond %{HTTP_HOST} ^(?:www\.)?winko\.my(?::\d+)?$ [NC]
+RewriteCond %{THE_REQUEST} \s/+([^?\s]*)index\.html(?:[?\s]) [NC]
+RewriteCond %{REQUEST_FILENAME} -f
+RewriteRule ^(.*)index\.html$ https://winko.my/$1 [R=301,L,NE]
+
+# Preferred HTTPS/non-www origin. Paths and query strings are preserved.
+# Host guard leaves localhost and GitHub testing unaffected.
+RewriteCond %{HTTP_HOST} ^(?:www\.)?winko\.my(?::\d+)?$ [NC]
+RewriteCond %{HTTPS} !=on [OR]
+RewriteCond %{HTTP_HOST} ^www\.winko\.my [NC]
+RewriteRule ^ https://winko.my%{REQUEST_URI} [R=301,L,NE]
+
+# Development artifacts are not public content.
+RewriteRule ^(?:3d-validation\.html|design-qa\.md|qa-[^/]+)$ - [R=404,L]
+</IfModule>

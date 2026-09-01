@@ -12,6 +12,7 @@
     span: { src: "index_html_files/span-approval-logo.png", width: 600, height: 600 }
   };
   const LANGUAGE_KEY = "winko-language";
+  const MOBILE_LANGUAGE_PROMPT_KEY = "winko-mobile-language-prompt-v1";
   const SITE_ORIGIN = "https://winko.my";
   const SITE_LOGO = `${SITE_ORIGIN}/${LOGO}`;
   const PAGE_SHARE_IMAGES = { home: "index_html_files/opengraph.webp", about: "index_html_files/about-winko-photo-1.png", products: "index_html_files/269.png", services: "index_html_files/511.webp", projects: "index_html_files/1046.webp", news: "index_html_files/responsible-manufacturing-2026.png", newsArticle: "index_html_files/singapore-factory-visit-2026.png", contact: "index_html_files/opengraph.webp" };
@@ -34,7 +35,7 @@
 
   const products = {
     hdg: {
-      name: "HDG Panel Tank", eyebrow: "Hot-dipped galvanised pressed steel", image: "index_html_files/269.png", href: "HDG Panel Tank.html",
+      name: "HDG Panel Tank", eyebrow: "Hot-dipped galvanised pressed steel", image: "index_html_files/269.png", href: "hdg-panel-tank/",
       description: "Durable, corrosion-resistant panel tank for large-scale building and industrial water storage.",
       detail: "The HDG Panel Tank is built from pressed mild steel panels with a hot-dipped galvanised finish. It is suitable for projects that need strength, modular installation, and practical long-term corrosion protection.",
       facts: [["Compliance", "SS22:1979 or SANS 10329:2020"], ["Material", "Mild steel to BS 4360:1972 Grade 43A or ISO equivalent"], ["Finish", "Hot-dipped galvanised coating to EN ISO 1461"]],
@@ -200,7 +201,7 @@
     { id: "product-range", category: "products", label: "PRODUCT GUIDE", title: "Explore WINKO water storage products", excerpt: "Review all eight WINKO products and compare materials, construction, and applications.", image: "index_html_files/963.webp", alt: "WINKO pressed panel detail", href: "products.html", cta: "EXPLORE PRODUCTS", resourceTitle: "Products", resourceSummary: "Review all eight WINKO products and compare materials, construction and applications.", resourceCta: "EXPLORE PRODUCTS", resourceHref: "products.html" },
     { id: "tank-services", category: "services", label: "SERVICE GUIDE", title: "Water tank maintenance & services", excerpt: "Find support for maintenance, repair and refurbishment, cleaning, and consultation.", image: "index_html_files/511.webp", alt: "WINKO tank service work", href: "services.html", cta: "VIEW SERVICES", resourceTitle: "Services", resourceSummary: "Maintenance, repair and refurbishment, cleaning and consultation.", resourceCta: "VIEW SERVICES", resourceHref: "services.html" },
     { id: "project-gallery", category: "projects", label: "PROJECT", title: "WINKO project gallery", excerpt: "Explore successful installations and completed projects from the WINKO gallery.", image: "index_html_files/1046.webp", alt: "WINKO water storage project", href: "project.html", cta: "VIEW PROJECTS", resourceTitle: "Projects", resourceSummary: "Explore successful installations and completed WINKO projects.", resourceCta: "VIEW PROJECTS", resourceHref: "project.html" },
-    { id: "hdg-guide", category: "technical", label: "TECHNICAL GUIDE", title: "HDG Panel Tank", excerpt: "Durable, corrosion-resistant panel tank for large-scale building and industrial water storage.", image: "index_html_files/269.png", alt: "WINKO HDG Panel Tank installation", href: "HDG Panel Tank.html", cta: "VIEW PRODUCT GUIDE", resourceTitle: "Technical resources", resourceSummary: "Technical product information from the existing WINKO range.", resourceCta: "VIEW PRODUCT GUIDE", resourceHref: "HDG Panel Tank.html" }
+    { id: "hdg-guide", category: "technical", label: "TECHNICAL GUIDE", title: "HDG Panel Tank", excerpt: "Durable, corrosion-resistant panel tank for large-scale building and industrial water storage.", image: "index_html_files/269.png", alt: "WINKO HDG Panel Tank installation", href: "hdg-panel-tank/", cta: "VIEW PRODUCT GUIDE", resourceTitle: "Technical resources", resourceSummary: "Technical product information from the existing WINKO range.", resourceCta: "VIEW PRODUCT GUIDE", resourceHref: "hdg-panel-tank/" }
   ];
   window.WINKO_NEWS = newsItems;
   const IMAGE_SIZES = { "index_html_files/269.png": [372, 248], "index_html_files/270.png": [374, 249], "index_html_files/668.webp": [372, 248], "index_html_files/272.png": [372, 248], "index_html_files/273.png": [372, 248], "index_html_files/880.webp": [374, 249], "index_html_files/875.webp": [372, 248], "index_html_files/hdpe-tank-reference.png": [335, 219], "index_html_files/511.webp": [373, 249], "index_html_files/963.webp": [384, 288], "index_html_files/1046.webp": [384, 288], "index_html_files/singapore-factory-visit-2026.png": [1242, 1242], "index_html_files/responsible-manufacturing-2026.png": [1448, 1086], "assets/news/jkr-frp-tank-factory-visit.png": [1448, 1086], "assets/news/sirim-stainless-steel-tank-audit.png": [1448, 1086], "assets/news/kpkt-factory-visit.png": [1448, 1086] };
@@ -247,6 +248,7 @@
   }
 
   function renderShell() {
+    if (document.documentElement.dataset.staticLocale) return;
     const headerTarget = document.querySelector("[data-site-header]");
     if (headerTarget) headerTarget.outerHTML = headerTemplate();
     const footerTarget = document.querySelector("[data-site-footer]");
@@ -272,6 +274,7 @@
   }
 
   function setupReveal() {
+    document.documentElement.classList.add("js-reveal");
     const items = document.querySelectorAll("[data-reveal]");
     if (!items.length || !("IntersectionObserver" in window) || reducedMotion) { items.forEach((item) => item.classList.add("is-visible")); return; }
     const observer = new IntersectionObserver((entries, current) => entries.forEach((entry) => { if (entry.isIntersecting) { entry.target.classList.add("is-visible"); current.unobserve(entry.target); } }), { rootMargin: "0px 0px -10% 0px" });
@@ -298,7 +301,7 @@
     window.WINKO3D?.setLocale?.(selected);
   }
 
-  function currentLanguage() { const queryLanguage = new URLSearchParams(window.location.search).get("lang"); if (I18N.languages.includes(queryLanguage)) return queryLanguage; const stored = localStorage.getItem(LANGUAGE_KEY); return I18N.languages.includes(stored) ? stored : "en"; }
+  function currentLanguage() { if (document.documentElement.dataset.staticLocale) return document.documentElement.dataset.staticLocale; const queryLanguage = new URLSearchParams(window.location.search).get("lang"); if (I18N.languages.includes(queryLanguage)) return queryLanguage; return "en"; }
   function translate(source, locale = currentLanguage()) { return I18N.text?.[locale]?.[source] || source; }
   function newsText(item, key, locale = currentLanguage()) { return translate(item[key] || "", locale); }
   function translateDocument(locale) {
@@ -319,7 +322,7 @@
     const detail = detailTarget && products[detailTarget.dataset.productDetail];
     const detailDescription = detail?.detailContent?.description?.[locale] || detail?.description || "";
     const pageLabel = { about: "About Us", products: "Products", services: "Services", projects: "Projects", news: "News", "news-article": "News", contact: "Contact" };
-    const crumbs = [{ name: translate("Home", locale), item: routeForLanguage(locale) }];
+    const crumbs = [{ name: translate("Home", locale), item: `${SITE_ORIGIN}/${locale === "en" ? "" : `${locale}/`}` }];
     if (detail) crumbs.push({ name: translate("Products", locale), item: `${SITE_ORIGIN}/products.html${locale === "en" ? "" : `?lang=${locale}`}` }, { name: translate(detail.name, locale), item: pageUrl });
     else if (pageLabel[page]) crumbs.push({ name: translate(pageLabel[page], locale), item: pageUrl });
     setJsonLd("breadcrumb", page === "home" ? null : { "@context": "https://schema.org", "@type": "BreadcrumbList", itemListElement: crumbs.map((crumb, index) => ({ "@type": "ListItem", position: index + 1, name: crumb.name, item: crumb.item })) });
@@ -334,6 +337,8 @@
     } else setJsonLd("newsArticle", null);
   }
   function updateMetadata(locale) {
+    // Published static metadata is authoritative; never rewrite its canonical from a query string.
+    if (document.documentElement.dataset.staticLocale || document.body.dataset.page === "404") return;
     const detailTarget = document.querySelector("[data-product-detail]");
     const detailKey = detailTarget?.dataset.productDetail;
     const pageId = detailTarget ? "productDetail" : (document.body.dataset.page || "home");
@@ -348,7 +353,7 @@
     const pageUrl = routeForLanguage(locale);
     const articleData = newsItems.find((item) => item.id === (newsArticleId || "overseas-client-factory-visit-2026"));
     const articleImage = articleData?.image;
-    const imagePath = detail?.image || articleImage || PAGE_SHARE_IMAGES[page] || PAGE_SHARE_IMAGES[pageId] || PAGE_SHARE_IMAGES.home;
+    const imagePath = detail?.image || (page === "newsArticle" && articleImage) || PAGE_SHARE_IMAGES[page] || PAGE_SHARE_IMAGES[pageId] || PAGE_SHARE_IMAGES.home;
     const imageUrl = `${SITE_ORIGIN}/${imagePath}`;
     document.title = pageTitle;
     setMeta('meta[name="description"]', { name: "description" }, pageDescription);
@@ -373,13 +378,91 @@
     updateStructuredData(locale, pageId, pageUrl, detailTarget);
   }
   function applySiteLanguage(locale, persist = true) {
+    if (document.documentElement.dataset.staticLocale) {
+      const code = locale === "zh" ? "zh-Hans" : locale;
+      const alternate = document.querySelector(`link[hreflang="${code}"]`);
+      if (persist && alternate && locale !== currentLanguage()) {
+        window.location.assign(new URL(new URL(alternate.href).pathname.slice(1) || "./", document.baseURI).href);
+        return;
+      }
+      const selected = currentLanguage();
+      document.querySelectorAll('[data-site-language]').forEach((link) => {
+        const language = link.dataset.siteLanguage;
+        const target = document.querySelector(`link[hreflang="${language === "zh" ? "zh-Hans" : language}"]`);
+        if (target) link.href = new URL(new URL(target.href).pathname.slice(1) || "./", document.baseURI).href;
+        link.classList.toggle('is-active', language === selected);
+        link.setAttribute('aria-current', language === selected ? 'page' : 'false');
+      });
+      apply3DLocale(selected);
+      return;
+    }
     const selected = I18N.languages.includes(locale) ? locale : "en"; const queryLanguage = new URLSearchParams(window.location.search).get("lang"); if (persist || I18N.languages.includes(queryLanguage)) localStorage.setItem(LANGUAGE_KEY, selected);
     const languageUrl = new URL(window.location.href); languageUrl.searchParams.delete("lang"); if (selected !== "en") languageUrl.searchParams.set("lang", selected); const nextLocation = `${languageUrl.pathname}${languageUrl.search}${languageUrl.hash}`; if (`${window.location.pathname}${window.location.search}${window.location.hash}` !== nextLocation) window.history.replaceState({}, "", nextLocation);
     document.documentElement.lang = selected === "zh" ? "zh-Hans" : selected;
     document.querySelectorAll("[data-site-language]").forEach((button) => { const active = button.dataset.siteLanguage === selected; button.classList.toggle("is-active", active); button.setAttribute("aria-pressed", String(active)); }); const languageCode = selected === "zh" ? "CN" : selected === "ms" ? "BM" : "EN"; document.querySelectorAll("[data-language-summary]").forEach((summary) => { summary.textContent = languageCode; summary.setAttribute("aria-label", `${translate("LANGUAGE", selected)}: ${languageCode}`); }); document.querySelectorAll(".language-dropdown[open], .mobile-language details[open]").forEach((dropdown) => { dropdown.open = false; });
     translateDocument(selected); document.querySelectorAll("[data-product-detail]").forEach((target) => { const product = products[target.dataset.productDetail], image = target.querySelector("[data-detail-image]"); if (!product || !image) return; const name = translate(product.name, selected); image.alt = selected === "zh" ? `WINKO ${name}` : selected === "ms" ? `${name} oleh WINKO` : `${name} by WINKO`; }); updateMetadata(selected); apply3DLocale(selected); document.dispatchEvent(new CustomEvent("winko:languagechange", { detail: { language: selected } }));
   }
-  function setupSiteLanguage() { document.querySelectorAll("[data-site-language]").forEach((button) => button.addEventListener("click", () => applySiteLanguage(button.dataset.siteLanguage))); const selected = currentLanguage(); window.addEventListener("winko:3d-ready", () => apply3DLocale(selected), { once: true }); applySiteLanguage(selected, false); window.WINKO_LANGUAGE = { get: currentLanguage, set: applySiteLanguage, validate: () => I18N.validate?.() }; I18N.validate?.(); }
+  function setupSiteLanguage() {
+    const requested = new URLSearchParams(window.location.search).get("lang");
+    if (document.documentElement.dataset.staticLocale && I18N.languages.includes(requested) && requested !== currentLanguage()) {
+      applySiteLanguage(requested);
+      return;
+    }
+    document.querySelectorAll("[data-site-language]").forEach((button) => button.addEventListener("click", (event) => { event.preventDefault(); applySiteLanguage(button.dataset.siteLanguage); }));
+    const selected = currentLanguage();
+    window.addEventListener("winko:3d-ready", () => apply3DLocale(selected), { once: true });
+    applySiteLanguage(selected, false);
+    window.WINKO_LANGUAGE = { get: currentLanguage, set: applySiteLanguage, validate: () => I18N.validate?.() };
+    I18N.validate?.();
+  }
+
+  function setupMobileLanguagePrompt() {
+    if (document.body.dataset.page === "404" || !window.matchMedia("(max-width: 720px)").matches || document.querySelector("[data-mobile-language-prompt]")) return;
+    try { if (window.sessionStorage.getItem(MOBILE_LANGUAGE_PROMPT_KEY) === "1") return; } catch (_) { /* Private browsing may block session storage; the prompt can still work. */ }
+    const locale = currentLanguage();
+    const copy = {
+      en: { title: "Choose your language", description: "Select your preferred language for the site.", dismiss: "Continue in English", close: "Close language selection" },
+      ms: { title: "Pilih bahasa anda", description: "Pilih bahasa pilihan anda untuk laman ini.", dismiss: "Teruskan dalam Bahasa Melayu", close: "Tutup pilihan bahasa" },
+      zh: { title: "选择您的语言", description: "请选择您偏好的网站语言。", dismiss: "继续使用简体中文", close: "关闭语言选择" }
+    }[locale] || { title: "Choose your language", description: "Select your preferred language for the site.", dismiss: "Continue in English", close: "Close language selection" };
+    const languages = [["en", "EN", "English"], ["ms", "BM", "Bahasa Melayu"], ["zh", "CN", "简体中文（中国）"]];
+    const popup = document.createElement("div");
+    popup.className = "mobile-language-prompt";
+    popup.dataset.mobileLanguagePrompt = "";
+    popup.hidden = true;
+    popup.setAttribute("aria-hidden", "true");
+    popup.setAttribute("role", "dialog");
+    popup.setAttribute("aria-modal", "true");
+    popup.setAttribute("aria-labelledby", "winko-language-prompt-title");
+    popup.setAttribute("aria-describedby", "winko-language-prompt-description");
+    popup.innerHTML = `<div class="mobile-language-prompt-backdrop" data-mobile-language-dismiss=""></div><section class="mobile-language-prompt-card"><button class="mobile-language-prompt-close" type="button" data-mobile-language-dismiss aria-label="${copy.close}">×</button><p class="eyebrow">${translate("LANGUAGE", locale)}</p><h2 id="winko-language-prompt-title">${copy.title}</h2><p id="winko-language-prompt-description">${copy.description}</p><div class="mobile-language-prompt-options" role="group" aria-label="${translate("LANGUAGE", locale)}">${languages.map(([value, code, name]) => `<button class="mobile-language-prompt-option${value === locale ? " is-active" : ""}" type="button" data-mobile-language-choice="${value}" aria-pressed="${value === locale}"><strong>${code}</strong><span>${name}</span></button>`).join("")}</div><button class="mobile-language-prompt-dismiss" type="button" data-mobile-language-dismiss>${copy.dismiss}</button></section>`;
+    document.body.appendChild(popup);
+    const previousFocus = document.activeElement;
+    const markSeen = () => { try { window.sessionStorage.setItem(MOBILE_LANGUAGE_PROMPT_KEY, "1"); } catch (_) { /* Continue without persistence when storage is unavailable. */ } };
+    const close = (remember = true) => {
+      if (popup.dataset.closing === "true") return;
+      popup.dataset.closing = "true";
+      if (remember) markSeen();
+      popup.classList.remove("is-visible");
+      popup.setAttribute("aria-hidden", "true");
+      document.body.classList.remove("language-prompt-open");
+      window.setTimeout(() => popup.remove(), reducedMotion ? 0 : 260);
+      if (previousFocus && typeof previousFocus.focus === "function") previousFocus.focus({ preventScroll: true });
+    };
+    popup.querySelectorAll("[data-mobile-language-dismiss]").forEach((button) => button.addEventListener("click", () => close()));
+    popup.querySelectorAll("[data-mobile-language-choice]").forEach((button) => button.addEventListener("click", () => { const selected = button.dataset.mobileLanguageChoice; close(); applySiteLanguage(selected); }));
+    popup.addEventListener("keydown", (event) => {
+      if (event.key === "Escape") { event.preventDefault(); close(); return; }
+      if (event.key !== "Tab") return;
+      const focusable = [...popup.querySelectorAll("button")].filter((button) => !button.disabled);
+      if (!focusable.length) return;
+      const first = focusable[0], last = focusable[focusable.length - 1];
+      if (event.shiftKey && document.activeElement === first) { event.preventDefault(); last.focus(); }
+      else if (!event.shiftKey && document.activeElement === last) { event.preventDefault(); first.focus(); }
+    });
+    document.body.classList.add("language-prompt-open");
+    window.setTimeout(() => { if (popup.dataset.closing === "true") return; popup.hidden = false; popup.setAttribute("aria-hidden", "false"); requestAnimationFrame(() => popup.classList.add("is-visible")); popup.querySelector(`[data-mobile-language-choice="${locale}"]`)?.focus({ preventScroll: true }); }, 550);
+  }
 
   function setupProductSwitcher() {
     const buttons = document.querySelectorAll("[data-product-button]"), panels = document.querySelectorAll("[data-product-panel]"); if (!buttons.length || !panels.length) return;
@@ -405,6 +488,7 @@
   }
 
   function setupNewsHub() {
+    if (document.documentElement.dataset.staticLocale) return;
     const target = document.querySelector("[data-news-hub]"); if (!target || !newsItems.length) return;
     const featuredStories = newsItems.filter((item) => item.featured);
     const featuredItems = featuredStories.length ? featuredStories : [newsItems[0]];
@@ -427,6 +511,7 @@
   }
 
   function setupNewsArticle() {
+    if (document.documentElement.dataset.staticLocale) return;
     const target = document.querySelector("[data-news-article]");
     if (!target) return;
       const articleId = target.dataset.newsArticleId || "overseas-client-factory-visit-2026";
@@ -458,7 +543,7 @@
     const target = document.querySelector("[data-project-gallery]");
     if (!target || !projectGroups.length) return;
     const imagePath = (file) => `index_html_files/${file}`;
-    target.innerHTML = projectGroups.map((project, projectIndex) => `<section class="project-group" data-project-group="${project.id}" data-reveal>
+    if (!document.documentElement.dataset.staticLocale) target.innerHTML = projectGroups.map((project, projectIndex) => `<section class="project-group" data-project-group="${project.id}" data-reveal>
       <div class="project-group-heading">
         <div><p class="eyebrow eyebrow--dark">${String(projectIndex + 1).padStart(2, "0")} / Project</p><h2>${project.title}</h2></div>
         <p>Original WINKO project photo sequence.</p>
@@ -471,8 +556,9 @@
     lightbox.className = "project-lightbox";
     lightbox.setAttribute("role", "dialog");
     lightbox.setAttribute("aria-modal", "true");
+    lightbox.setAttribute("aria-label", translate("Projects"));
     lightbox.setAttribute("aria-hidden", "true");
-    lightbox.innerHTML = `<div class="project-lightbox-backdrop" data-lightbox-close></div><div class="project-lightbox-dialog"><button class="project-lightbox-close" type="button" data-lightbox-close aria-label="Close project image">×</button><button class="project-lightbox-nav project-lightbox-nav--prev" type="button" data-lightbox-prev aria-label="Previous project image">←</button><figure><img data-lightbox-image alt=""><figcaption data-lightbox-caption></figcaption></figure><button class="project-lightbox-nav project-lightbox-nav--next" type="button" data-lightbox-next aria-label="Next project image">→</button></div>`;
+    lightbox.innerHTML = `<div class="project-lightbox-backdrop" data-lightbox-close></div><div class="project-lightbox-dialog"><button class="project-lightbox-close" type="button" data-lightbox-close aria-label="Close project image">×</button><button class="project-lightbox-nav project-lightbox-nav--prev" type="button" data-lightbox-prev aria-label="Previous project image">←</button><figure><img data-lightbox-image hidden alt=""><figcaption data-lightbox-caption></figcaption></figure><button class="project-lightbox-nav project-lightbox-nav--next" type="button" data-lightbox-next aria-label="Next project image">→</button></div>`;
     document.body.appendChild(lightbox);
     const imageNode = lightbox.querySelector("[data-lightbox-image]");
     const captionNode = lightbox.querySelector("[data-lightbox-caption]");
@@ -480,11 +566,12 @@
     const setImage = () => {
       const file = activeProject.images[activeIndex];
       imageNode.src = imagePath(file);
+      imageNode.hidden = false;
       imageNode.alt = `${activeProject.title} — ${translate("project image")} ${activeIndex + 1}`;
       captionNode.textContent = `${activeProject.title} · ${translate("Image")} ${activeIndex + 1} ${translate("of")} ${activeProject.images.length}`;
     };
     const close = () => { lightbox.setAttribute("aria-hidden", "true"); document.body.classList.remove("is-lightbox-open"); lastTrigger?.focus(); };
-    const open = (projectId, index, trigger) => { activeProject = projectGroups.find((project) => project.id === projectId) || projectGroups[0]; activeIndex = Math.max(0, Math.min(Number(index) || 0, activeProject.images.length - 1)); lastTrigger = trigger; setImage(); lightbox.setAttribute("aria-hidden", "false"); document.body.classList.add("is-lightbox-open"); lightbox.querySelector("[data-lightbox-close]")?.focus(); };
+    const open = (projectId, index, trigger) => { activeProject = projectGroups.find((project) => project.id === projectId) || projectGroups[0]; activeIndex = Math.max(0, Math.min(Number(index) || 0, activeProject.images.length - 1)); lastTrigger = trigger; setImage(); lightbox.setAttribute("aria-hidden", "false"); document.body.classList.add("is-lightbox-open"); lightbox.querySelector("button[data-lightbox-close]")?.focus(); };
     target.querySelectorAll("[data-project-image]").forEach((button) => button.addEventListener("click", () => open(button.dataset.projectId, button.dataset.projectIndex, button)));
     lightbox.querySelectorAll("[data-lightbox-close]").forEach((node) => node.addEventListener("click", close));
     lightbox.querySelector("[data-lightbox-prev]").addEventListener("click", () => { activeIndex = (activeIndex - 1 + activeProject.images.length) % activeProject.images.length; setImage(); });
@@ -517,13 +604,14 @@
   }
 
   function setupProductDetail() {
+    if (document.documentElement.dataset.staticLocale) return;
     const target = document.querySelector("[data-product-detail]"); if (!target) return; const product = products[target.dataset.productDetail]; if (!product?.detailContent) return;
     const content = product.detailContent;
     const read = (value) => value?.[currentLanguage()] || value?.en || "";
     const escape = (value) => String(value).replace(/[&<>\"']/g, (character) => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", "\"": "&quot;", "'": "&#39;" }[character]));
     const setText = (selector, value) => { const node = target.querySelector(selector); if (node) node.textContent = value; };
     const related = Object.entries(products).filter(([key]) => key !== target.dataset.productDetail).slice(0, 3);
-    const restored = document.createElement("section");
+    const restored = document.querySelector(".detail-restored") || document.createElement("section");
     restored.className = "section detail-restored";
     const render = () => {
       const locale = currentLanguage();
@@ -561,5 +649,5 @@
 
   function ensureCanonical() { updateMetadata(currentLanguage()); }
 
-  protectStagingIndexing(); renderShell(); setupNavigation(); setupReveal(); setupCounters(); setupHeroTank3D(); setupTankAssembly3D(); setupProductSwitcher(); setupAssemblyFallback(); setupNewsHub(); setupNewsArticle(); setupNewsFilters(); setupProjectGallery(); setupForms(); setupProductDetail(); addUtilityLinks(); setupSiteLanguage(); ensureCanonical();
+  protectStagingIndexing(); renderShell(); setupNavigation(); setupReveal(); setupCounters(); setupHeroTank3D(); setupTankAssembly3D(); setupProductSwitcher(); setupAssemblyFallback(); setupNewsHub(); setupNewsArticle(); setupNewsFilters(); setupProjectGallery(); setupForms(); setupProductDetail(); addUtilityLinks(); setupSiteLanguage(); setupMobileLanguagePrompt(); ensureCanonical();
 })();
