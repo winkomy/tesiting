@@ -6,6 +6,8 @@
   const WHATSAPP = "https://wa.me/60105161368";
   const PHONE = "+603-8727 7540";
   const EMAIL = "sales@winko.my";
+  // TODO: Set this to WINKO's secure enquiry POST endpoint before launch.
+  const FORM_ENDPOINT = "";
   const ADDRESS = "No. 19, Kawasan Perindustrian Mega 2, Jln Mega 2/1, 43500 Semenyih, Selangor, Malaysia";
   const APPROVAL_LOGOS = {
     sirim: { src: "index_html_files/sirim-approval-logo.png", width: 584, height: 716 },
@@ -35,23 +37,23 @@
 
   const products = {
     hdg: {
-      name: "HDG Panel Tank", eyebrow: "Hot-dipped galvanised pressed steel", image: "index_html_files/269.png", href: "hdg-panel-tank/",
+      name: "HDG Panel Tank", eyebrow: "Hot-dip galvanised pressed steel", image: "index_html_files/269.png", href: "hdg-panel-tank/",
       description: "Durable, corrosion-resistant panel tank for large-scale building and industrial water storage.",
       detail: "The HDG Panel Tank is built from pressed mild steel panels with a hot-dipped galvanised finish. It is suitable for projects that need strength, modular installation, and practical long-term corrosion protection.",
-      facts: [["Compliance", "SS22:1979 or SANS 10329:2020"], ["Material", "Mild steel to BS 4360:1972 Grade 43A or ISO equivalent"], ["Finish", "Hot-dipped galvanised coating to EN ISO 1461"]],
-      bullets: ["Hot-dipped galvanised steel panel construction", "Strong modular design for large-capacity storage", "Suitable for elevated or ground-level tank installation", "Good corrosion protection compared with ordinary painted steel"],
+      facts: [["Compliance", "SS22:1979 or SANS 10329:2020"], ["Material", "Mild steel to BS 4360:1972 Grade 43A or ISO equivalent"], ["Finish", "Hot-dip galvanised coating to EN ISO 1461"]],
+      bullets: ["Hot-dip galvanised steel panel construction", "Strong modular design for large-capacity storage", "Suitable for elevated or ground-level tank installation", "Good corrosion protection compared with ordinary painted steel"],
       applications: ["Large-scale building water storage", "Industrial water storage", "Elevated or ground-level tank installation"]
     },
     hdpe: {
-      name: "HDG Panel Tank + HDPE Lining", eyebrow: "Galvanised panels with protective liner", image: "index_html_files/270.png", href: "HDG Panel Tank + HDPE Lining.html",
+      name: "HDG Panel Tank + HDPE Lining", eyebrow: "Galvanised panels with protective liner", image: "index_html_files/270.png", href: "hdg-panel-tank-hdpe-lining/",
       description: "A reinforced panel tank system combining galvanised steel strength with additional internal HDPE protection.",
       detail: "This system uses a galvanised steel panel structure with an internal HDPE lining. It is suitable when the project requires steel strength but also needs an internal protective barrier to reduce direct water contact with the steel surface.",
-      facts: [["Structure", "Hot-dipped galvanised pressed mild steel panels"], ["Internal lining", "HDPE protective barrier"], ["Design note", "Final specification follows project drawings and compatibility requirements"]],
+      facts: [["Structure", "Hot-dip galvanised pressed mild steel panels"], ["Internal lining", "HDPE protective barrier"], ["Design note", "Final specification follows project drawings and compatibility requirements"]],
       bullets: ["HDG panel tank external structure", "Internal HDPE lining for extra protection", "Useful for leakage-control and corrosion-sensitive projects", "Suitable as an upgrade from standard bolted steel tanks"],
       applications: ["Leakage-control projects", "Corrosion-sensitive projects", "Upgrades from standard bolted steel tanks"]
     },
     stainless: {
-      name: "Stainless Steel Panel Tank", eyebrow: "Clean, durable, corrosion-resistant storage", image: "index_html_files/668.webp", href: "Stainless Steel Panel Tank.html",
+      name: "Stainless Steel Panel Tank", eyebrow: "Clean, durable, corrosion-resistant storage", image: "index_html_files/668.webp", href: "stainless-steel-panel-tank/",
       description: "Premium corrosion-resistant panel tank for clean, long-life water storage applications.",
       detail: "The Stainless Steel Panel Tank is designed for clients who need better material quality, cleaner appearance, and stronger long-term corrosion resistance than standard mild steel tanks. It is suitable for high-demand commercial, industrial, and clean-water projects.",
       facts: [["Compliance", "SANS 10328:2020"], ["Material", "SUS304 or SUS316 stainless steel"], ["Panel design", "Hydraulically pressed modular panels"]],
@@ -59,7 +61,7 @@
       applications: ["High-demand commercial water storage", "Industrial water storage", "Clean-water projects"]
     },
     painted: {
-      name: "Painted Steel Panel Tank", eyebrow: "Practical painted steel storage", image: "index_html_files/272.png", href: "Painted Steel Panel Tank.html",
+      name: "Painted Steel Panel Tank", eyebrow: "Practical painted steel storage", image: "index_html_files/272.png", href: "painted-steel-panel-tank/",
       description: "Affordable and sturdy steel tank with protective paint coating for practical water storage applications.",
       detail: "The Painted Steel Panel Tank is a cost-effective pressed steel water storage system. It is suitable for projects that require strength and affordability, especially fire protection systems such as sprinkler tanks and hose reel tanks.",
       facts: [["Compliance", "SS22:1979 or SANS 10329:2020"], ["Material", "Mild steel to BS 4360:1972 Grade 43A or ISO equivalent"], ["Finish", "Non-toxic primer and black bituminous paint"]],
@@ -67,7 +69,7 @@
       applications: ["Fire protection systems", "Sprinkler tanks", "Hose reel tanks", "General water storage"]
     },
     frp: {
-      name: "FRP Panel Tank", eyebrow: "Lightweight composite panel storage", image: "index_html_files/273.png", href: "FRP Panel Tank.html",
+      name: "FRP Panel Tank", eyebrow: "Lightweight composite panel storage", image: "index_html_files/273.png", href: "frp-panel-tank/",
       description: "Lightweight, corrosion-resistant modular panel tank for specialized and project-based water storage.",
       detail: "The FRP Panel Tank is manufactured using Glass Fiber Reinforced Plastic panels. It is suitable for projects that require non-metallic material, corrosion resistance, modular installation, and documented technical compliance.",
       facts: [["Standards", "MS 1390:2010 and SS 245:2014"], ["Material", "Glass Fiber Reinforced Plastic (GFRP)"], ["Approval", "SPAN/BPAO/200-10/7/A/W-6"]],
@@ -75,7 +77,7 @@
       applications: ["Non-metallic material requirements", "Corrosion-sensitive environments", "Modular project-based installations"]
     },
     pe: {
-      name: "Polyethylene (PE) Tank", eyebrow: "Lightweight polyethylene storage", image: "index_html_files/880.webp", href: "Polyethylene.html",
+      name: "Polyethylene (PE) Tank", eyebrow: "Lightweight polyethylene storage", image: "index_html_files/880.webp", href: "polyethylene/",
       description: "Lightweight, cost-effective, and easy-to-install tank for residential, commercial, and light industrial water storage.",
       detail: "The Polyethylene Tank is a practical option for customers who need affordable water storage with fast installation. The POLYSTOR range uses rotational moulding technology for water and selected chemical storage requirements.",
       facts: [["Product family", "POLYSTOR polyethylene tank"], ["Material", "Food-grade polyethylene"], ["Capacity range", "Approximately 230 to 45,000 litres"]],
@@ -83,7 +85,7 @@
       applications: ["Residential water storage", "Commercial water storage", "Light industrial water storage", "Selected chemical storage requirements"]
     },
     frpOne: {
-      name: "FRP One-Piece Tank", eyebrow: "One-piece composite storage", image: "index_html_files/875.webp", href: "FRP One-Piece Tank.html",
+      name: "FRP One-Piece Tank", eyebrow: "One-piece composite storage", image: "index_html_files/875.webp", href: "frp-one-piece-tank/",
       description: "Seamless FRP storage tank designed to reduce leakage points and provide durable water or selected chemical storage.",
       detail: "The FRP One-Piece Tank is suitable where customers want a rust-free, seamless tank body with fewer joints than sectional tanks. G-Cistern positions its closed-top tank as a dual-process fabricated one-piece FRP water tank.",
       facts: [["Product series", "G-Cistern FRP one-piece tank"], ["Fabrication", "Dual-process fabrication"], ["Protection", "External UV coating"]],
@@ -91,7 +93,7 @@
       applications: ["Water storage", "Selected chemical storage", "Closed-top or open-top tank requirements"]
     },
     hdpeTank: {
-      name: "HDPE Tank", eyebrow: "High-density polyethylene storage", image: "index_html_files/hdpe-tank-reference.png", href: "HDPE Tank.html",
+      name: "HDPE Tank", eyebrow: "High-density polyethylene storage", image: "index_html_files/hdpe-tank-reference.png", href: "hdpe-tank/",
       description: "Strong, corrosion-resistant non-metallic tank for industrial, chemical, and heavy-duty storage conditions.",
       detail: "The HDPE Tank is a heavier-duty non-metallic option where chemical resistance, corrosion resistance, and industrial durability are important. Final suitability must be confirmed based on the stored liquid, concentration, temperature, and project design.",
       facts: [["Material", "High-density polyethylene (HDPE)"], ["Tank type", "Heavy-duty non-metallic tank"], ["Design requirement", "Chemical compatibility review before quotation or supply"]],
@@ -105,9 +107,9 @@
       eyebrow: copy("Hot-Dipped Galvanised Pressed Steel Panel Water Tank", "Tangki Air Panel Keluli Tekan Galvani Celup Panas", "热浸镀锌压制钢板水箱"),
       description: copy("Durable, corrosion-resistant panel tank for large-scale building and industrial water storage.", "Tangki panel tahan lama dan tahan kakisan untuk penyimpanan air bangunan berskala besar dan industri.", "耐用抗腐蚀的板式水箱，适用于大型建筑及工业储水。"),
       overview: copy("The HDG Panel Tank is built from pressed mild steel panels with a hot-dipped galvanised finish. It is suitable for projects that need strength, modular installation, and practical long-term corrosion protection.", "Tangki Panel HDG dibina daripada panel keluli lembut tekan dengan kemasan galvani celup panas. Ia sesuai untuk projek yang memerlukan kekuatan, pemasangan modular dan perlindungan kakisan jangka panjang.", "HDG 镀锌钢板水箱采用压制低碳钢板与热浸镀锌表面处理，适合需要强度、模块化安装及长期防腐的项目。"),
-      features: [copy("Hot-dipped galvanised steel panel construction", "Pembinaan panel keluli galvani celup panas", "热浸镀锌钢板结构"), copy("Strong modular design for large-capacity storage", "Reka bentuk modular kukuh untuk penyimpanan kapasiti besar", "适用于大容量储存的坚固模块化设计"), copy("Suitable for elevated or ground-level tank installation", "Sesuai untuk pemasangan tangki bertingkat atau aras tanah", "适用于架高或地面水箱安装"), copy("Good corrosion protection compared with ordinary painted steel", "Perlindungan kakisan yang baik berbanding keluli bercat biasa", "相比普通涂漆钢板具更佳防腐性能"), copy("Can be supplied with standard tank accessories and connection points", "Boleh dibekalkan dengan aksesori tangki dan titik sambungan standard", "可配备标准水箱配件及连接点")],
+      features: [copy("Hot-dip galvanised steel panel construction", "Pembinaan panel keluli galvani celup panas", "热浸镀锌钢板结构"), copy("Strong modular design for large-capacity storage", "Reka bentuk modular kukuh untuk penyimpanan kapasiti besar", "适用于大容量储存的坚固模块化设计"), copy("Suitable for elevated or ground-level tank installation", "Sesuai untuk pemasangan tangki bertingkat atau aras tanah", "适用于架高或地面水箱安装"), copy("Good corrosion protection compared with ordinary painted steel", "Perlindungan kakisan yang baik berbanding keluli bercat biasa", "相比普通涂漆钢板具更佳防腐性能"), copy("Can be supplied with standard tank accessories and connection points", "Boleh dibekalkan dengan aksesori tangki dan titik sambungan standard", "可配备标准水箱配件及连接点")],
       applications: [copy("Commercial buildings and factories", "Bangunan komersial dan kilang", "商业建筑与工厂"), copy("Apartments, schools, and institutions", "Pangsapuri, sekolah dan institusi", "公寓、学校及机构"), copy("Industrial water storage", "Penyimpanan air industri", "工业储水"), copy("Fire protection water storage", "Penyimpanan air perlindungan kebakaran", "消防储水"), copy("General building water supply systems", "Sistem bekalan air bangunan am", "一般建筑供水系统")],
-      specs: [[copy("Tank compliance", "Pematuhan tangki", "水箱标准"), copy("SS22:1979 or SANS 10329:2020", "SS22:1979 atau SANS 10329:2020", "SS22:1979 或 SANS 10329:2020")], [copy("Material", "Bahan", "材质"), copy("Mild steel conforming to BS 4360:1972 Grade 43A or ISO equivalent", "Keluli lembut mematuhi BS 4360:1972 Gred 43A atau setara ISO", "符合 BS 4360:1972 Grade 43A 或 ISO 等效标准的低碳钢")], [copy("Coating finish", "Kemasan salutan", "涂层表面"), copy("Hot-dipped galvanised coating conforming to EN ISO 1461", "Salutan galvani celup panas mematuhi EN ISO 1461", "符合 EN ISO 1461 的热浸镀锌涂层")], [copy("Panel / flange design", "Reka bentuk panel / bebibir", "板材 / 法兰设计"), copy("Hydraulically pressed plates with combined double flanges at 45 degree or 90 degree to the plate face", "Plat tekan hidraulik dengan bebibir berkembar gabungan pada 45 darjah atau 90 darjah kepada muka plat", "液压压制板材，带组合式双法兰，法兰与板面呈 45 度或 90 度")], [copy("Bolt holes", "Lubang bolt", "螺栓孔"), copy("2.0 mm bolt-hole clearance; minimum M14 bolt diameter", "Kelegaan lubang bolt 2.0 mm; diameter bolt minimum M14", "螺栓孔间隙 2.0 mm；最小螺栓直径 M14")], [copy("Internal reinforcement", "Pengukuhan dalaman", "内部加强"), copy("Diagonal stays bracing or horizontal tie rods bracing", "Pendakap stay pepenjuru atau pendakap rod pengikat mendatar", "对角撑杆或水平拉杆加强")], [copy("Jointing materials", "Bahan penyambungan", "接缝材料"), copy("Non-toxic, odourless PVC foam sealant and butyl sealant", "Pengedap buih PVC tidak toksik dan tidak berbau serta pengedap butil", "无毒无味 PVC 泡沫密封胶及丁基密封胶")], [copy("Tank cover", "Penutup tangki", "水箱顶盖"), copy("Hydraulic pressed cover supported by trusses; 600 x 600 mm square manhole; 50 mm or 100 mm ABS air vent per compartment", "Penutup tekan hidraulik disokong kekuda; lurang segi empat 600 x 600 mm; vent ABS 50 mm atau 100 mm bagi setiap ruang", "液压压制顶盖由桁架支撑；600 x 600 mm 方形人孔；每个隔间配备 50 mm 或 100 mm ABS 通气口")], [copy("Access ladder", "Tangga akses", "检修梯"), copy("Mild steel ladder provided for tank height 1.5 m and above", "Tangga keluli lembut disediakan untuk ketinggian tangki 1.5 m dan ke atas", "水箱高度达到 1.5 m 及以上时配备低碳钢梯")], [copy("Water level indicator", "Penunjuk paras air", "水位指示器"), copy("Mechanical pulley type or PVC float ball type", "Jenis takal mekanikal atau jenis bebola apungan PVC", "机械滑轮式或 PVC 浮球式")], [copy("Standard thickness", "Ketebalan standard", "标准厚度"), copy("Based on SS22:1979: roof 1.5 mm; base / wall panels commonly 5.0-6.0 mm depending on tank height", "Berdasarkan SS22:1979: bumbung 1.5 mm; panel dasar / dinding lazimnya 5.0-6.0 mm bergantung pada ketinggian tangki", "依据 SS22:1979：顶盖 1.5 mm；底板 / 墙板通常为 5.0-6.0 mm，视水箱高度而定")]],
+      specs: [[copy("Tank compliance", "Pematuhan tangki", "水箱标准"), copy("SS22:1979 or SANS 10329:2020", "SS22:1979 atau SANS 10329:2020", "SS22:1979 或 SANS 10329:2020")], [copy("Material", "Bahan", "材质"), copy("Mild steel conforming to BS 4360:1972 Grade 43A or ISO equivalent", "Keluli lembut mematuhi BS 4360:1972 Gred 43A atau setara ISO", "符合 BS 4360:1972 Grade 43A 或 ISO 等效标准的低碳钢")], [copy("Coating finish", "Kemasan salutan", "涂层表面"), copy("Hot-dip galvanised coating conforming to EN ISO 1461", "Salutan galvani celup panas mematuhi EN ISO 1461", "符合 EN ISO 1461 的热浸镀锌涂层")], [copy("Panel / flange design", "Reka bentuk panel / bebibir", "板材 / 法兰设计"), copy("Hydraulically pressed plates with combined double flanges at 45 degree or 90 degree to the plate face", "Plat tekan hidraulik dengan bebibir berkembar gabungan pada 45 darjah atau 90 darjah kepada muka plat", "液压压制板材，带组合式双法兰，法兰与板面呈 45 度或 90 度")], [copy("Bolt holes", "Lubang bolt", "螺栓孔"), copy("2.0 mm bolt-hole clearance; minimum M14 bolt diameter", "Kelegaan lubang bolt 2.0 mm; diameter bolt minimum M14", "螺栓孔间隙 2.0 mm；最小螺栓直径 M14")], [copy("Internal reinforcement", "Pengukuhan dalaman", "内部加强"), copy("Diagonal stays bracing or horizontal tie rods bracing", "Pendakap stay pepenjuru atau pendakap rod pengikat mendatar", "对角撑杆或水平拉杆加强")], [copy("Jointing materials", "Bahan penyambungan", "接缝材料"), copy("Non-toxic, odourless PVC foam sealant and butyl sealant", "Pengedap buih PVC tidak toksik dan tidak berbau serta pengedap butil", "无毒无味 PVC 泡沫密封胶及丁基密封胶")], [copy("Tank cover", "Penutup tangki", "水箱顶盖"), copy("Hydraulic pressed cover supported by trusses; 600 x 600 mm square manhole; 50 mm or 100 mm ABS air vent per compartment", "Penutup tekan hidraulik disokong kekuda; lurang segi empat 600 x 600 mm; vent ABS 50 mm atau 100 mm bagi setiap ruang", "液压压制顶盖由桁架支撑；600 x 600 mm 方形人孔；每个隔间配备 50 mm 或 100 mm ABS 通气口")], [copy("Access ladder", "Tangga akses", "检修梯"), copy("Mild steel ladder provided for tank height 1.5 m and above", "Tangga keluli lembut disediakan untuk ketinggian tangki 1.5 m dan ke atas", "水箱高度达到 1.5 m 及以上时配备低碳钢梯")], [copy("Water level indicator", "Penunjuk paras air", "水位指示器"), copy("Mechanical pulley type or PVC float ball type", "Jenis takal mekanikal atau jenis bebola apungan PVC", "机械滑轮式或 PVC 浮球式")], [copy("Standard thickness", "Ketebalan standard", "标准厚度"), copy("Based on SS22:1979: roof 1.5 mm; base / wall panels commonly 5.0-6.0 mm depending on tank height", "Berdasarkan SS22:1979: bumbung 1.5 mm; panel dasar / dinding lazimnya 5.0-6.0 mm bergantung pada ketinggian tangki", "依据 SS22:1979：顶盖 1.5 mm；底板 / 墙板通常为 5.0-6.0 mm，视水箱高度而定")]],
       positioning: copy("Use this page to position the HDG Panel Tank as a strong, practical, project-ready steel tank for clients who need value and durability.", "Gunakan halaman ini untuk meletakkan Tangki Panel HDG sebagai tangki keluli yang kukuh, praktikal dan sedia untuk projek bagi pelanggan yang memerlukan nilai serta ketahanan.", "本页将 HDG 镀锌钢板水箱定位为坚固、实用且适合项目使用的钢制水箱，满足客户对性价比与耐用性的需求。")
     },
     hdpe: {
@@ -116,7 +118,7 @@
       overview: copy("This system uses a galvanised steel panel structure with an internal HDPE lining. It is suitable when the project requires steel strength but also needs an internal protective barrier to reduce direct water contact with the steel surface.", "Sistem ini menggunakan struktur panel keluli galvani dengan lapisan dalaman HDPE. Ia sesuai apabila projek memerlukan kekuatan keluli serta penghalang dalaman untuk mengurangkan sentuhan air terus dengan permukaan keluli.", "该系统采用镀锌钢板结构与 HDPE 内衬，适合既需要钢结构强度，又需内部防护层以减少水体直接接触钢面的项目。"),
       features: [copy("HDG panel tank external structure", "Struktur luar tangki panel HDG", "HDG 板式水箱外部结构"), copy("Internal HDPE lining for extra protection", "Lapisan dalaman HDPE untuk perlindungan tambahan", "HDPE 内衬提供额外防护"), copy("Useful for leakage-control and corrosion-sensitive projects", "Sesuai untuk projek kawalan kebocoran dan sensitif kakisan", "适用于防漏及腐蚀敏感项目"), copy("Suitable as an upgrade from standard bolted steel tanks", "Sesuai sebagai naik taraf daripada tangki keluli berbolt standard", "适合作为标准螺栓钢板水箱的升级方案"), copy("Can be customized to project drawings and connection requirements", "Boleh disesuaikan mengikut lukisan projek dan keperluan sambungan", "可按项目图纸及连接要求定制")],
       applications: [copy("Bolted steel tank applications", "Aplikasi tangki keluli berbolt", "螺栓钢板水箱应用"), copy("Sprinkler tank systems", "Sistem tangki sprinkler", "喷淋水箱系统"), copy("Hose reel tank systems", "Sistem tangki gelung hos", "消防软管卷盘水箱系统"), copy("Industrial water storage", "Penyimpanan air industri", "工业储水"), copy("Tank refurbishment or lining upgrade works", "Kerja baik pulih atau naik taraf lapisan tangki", "水箱翻新或内衬升级工程")],
-      specs: [[copy("Tank structure", "Struktur tangki", "水箱结构"), copy("Hot-dipped galvanised pressed mild steel panel tank", "Tangki panel keluli lembut tekan galvani celup panas", "热浸镀锌压制低碳钢板水箱")], [copy("Internal lining", "Lapisan dalaman", "内部内衬"), copy("HDPE lining as protective internal barrier", "Lapisan HDPE sebagai penghalang dalaman pelindung", "HDPE 内衬作为内部防护层")], [copy("External coating", "Salutan luaran", "外部涂层"), copy("HDG coating typically conforming to EN ISO 1461 when supplied under HDG pressed steel specification", "Salutan HDG lazimnya mematuhi EN ISO 1461 apabila dibekalkan di bawah spesifikasi keluli tekan HDG", "按 HDG 压制钢板规格供货时，HDG 涂层通常符合 EN ISO 1461")], [copy("Panel / flange design", "Reka bentuk panel / bebibir", "板材 / 法兰设计"), copy("Hydraulically pressed plates with double flange arrangement, subject to project design", "Plat tekan hidraulik dengan susunan bebibir berkembar, tertakluk kepada reka bentuk projek", "液压压制板材，带双法兰布置，具体以项目设计为准")], [copy("Bolting", "Pemboltan", "螺栓连接"), copy("Bolted panel tank system; bolt grade / diameter to follow tank design and supplier specification", "Sistem tangki panel berbolt; gred / diameter bolt mengikut reka bentuk tangki dan spesifikasi pembekal", "螺栓板式水箱系统；螺栓等级 / 直径按水箱设计及供应商规格执行")], [copy("Jointing / sealing", "Penyambungan / pengedapan", "接缝 / 密封"), copy("Sealant, lining detail, overlaps, and termination points to be confirmed based on final tank drawings", "Pengedap, butiran lapisan, pertindihan dan titik penamatan perlu disahkan berdasarkan lukisan tangki akhir", "密封胶、内衬细节、搭接及收口位置须根据最终水箱图纸确认")], [copy("Accessories", "Aksesori", "配件"), copy("May include access ladder, manhole, air vent, drain / scour, overflow, inlet / outlet connections, water level indicator, and internal / external reinforcement", "Boleh merangkumi tangga akses, lurang, vent udara, saliran / scour, limpahan, sambungan masuk / keluar, penunjuk paras air serta pengukuhan dalaman / luaran", "可包括检修梯、人孔、通气口、排水 / 冲洗口、溢流口、进 / 出水连接、水位指示器及内部 / 外部加强件")], [copy("Design note", "Nota reka bentuk", "设计说明"), copy("Final specification should be confirmed against project drawings, lining method statement, and water / chemical compatibility requirements", "Spesifikasi akhir hendaklah disahkan berdasarkan lukisan projek, kaedah pemasangan lapisan dan keperluan keserasian air / bahan kimia", "最终规格须结合项目图纸、内衬施工方案及水体 / 化学品兼容性要求确认")]],
+      specs: [[copy("Tank structure", "Struktur tangki", "水箱结构"), copy("Hot-dip galvanised pressed mild steel panel tank", "Tangki panel keluli lembut tekan galvani celup panas", "热浸镀锌压制低碳钢板水箱")], [copy("Internal lining", "Lapisan dalaman", "内部内衬"), copy("HDPE lining as protective internal barrier", "Lapisan HDPE sebagai penghalang dalaman pelindung", "HDPE 内衬作为内部防护层")], [copy("External coating", "Salutan luaran", "外部涂层"), copy("HDG coating typically conforming to EN ISO 1461 when supplied under HDG pressed steel specification", "Salutan HDG lazimnya mematuhi EN ISO 1461 apabila dibekalkan di bawah spesifikasi keluli tekan HDG", "按 HDG 压制钢板规格供货时，HDG 涂层通常符合 EN ISO 1461")], [copy("Panel / flange design", "Reka bentuk panel / bebibir", "板材 / 法兰设计"), copy("Hydraulically pressed plates with double flange arrangement, subject to project design", "Plat tekan hidraulik dengan susunan bebibir berkembar, tertakluk kepada reka bentuk projek", "液压压制板材，带双法兰布置，具体以项目设计为准")], [copy("Bolting", "Pemboltan", "螺栓连接"), copy("Bolted panel tank system; bolt grade / diameter to follow tank design and supplier specification", "Sistem tangki panel berbolt; gred / diameter bolt mengikut reka bentuk tangki dan spesifikasi pembekal", "螺栓板式水箱系统；螺栓等级 / 直径按水箱设计及供应商规格执行")], [copy("Jointing / sealing", "Penyambungan / pengedapan", "接缝 / 密封"), copy("Sealant, lining detail, overlaps, and termination points to be confirmed based on final tank drawings", "Pengedap, butiran lapisan, pertindihan dan titik penamatan perlu disahkan berdasarkan lukisan tangki akhir", "密封胶、内衬细节、搭接及收口位置须根据最终水箱图纸确认")], [copy("Accessories", "Aksesori", "配件"), copy("May include access ladder, manhole, air vent, drain / scour, overflow, inlet / outlet connections, water level indicator, and internal / external reinforcement", "Boleh merangkumi tangga akses, lurang, vent udara, saliran / scour, limpahan, sambungan masuk / keluar, penunjuk paras air serta pengukuhan dalaman / luaran", "可包括检修梯、人孔、通气口、排水 / 冲洗口、溢流口、进 / 出水连接、水位指示器及内部 / 外部加强件")], [copy("Design note", "Nota reka bentuk", "设计说明"), copy("Final specification should be confirmed against project drawings, lining method statement, and water / chemical compatibility requirements", "Spesifikasi akhir hendaklah disahkan berdasarkan lukisan projek, kaedah pemasangan lapisan dan keperluan keserasian air / bahan kimia", "最终规格须结合项目图纸、内衬施工方案及水体 / 化学品兼容性要求确认")]],
       positioning: copy("Use this page as an upsell from standard HDG tanks where the buyer is concerned about internal corrosion, leakage protection, or longer service performance.", "Gunakan halaman ini sebagai naik taraf daripada tangki HDG standard apabila pembeli mengambil berat tentang kakisan dalaman, perlindungan kebocoran atau prestasi perkhidmatan yang lebih panjang.", "当客户关注内部腐蚀、防漏保护或更长使用性能时，本页可作为标准 HDG 水箱的升级方案说明。")
     },
     stainless: {
@@ -243,7 +245,7 @@
 
   function footerApprovalBlock() {
     if (!APPROVAL_LOGOS?.sirim || !APPROVAL_LOGOS?.span) return "<!-- TODO: Insert verified official SIRIM and SPAN logo assets here when supplied by WINKO. -->";
-    return `<div class="footer-approvals"><span class="footer-approvals-label">Certifications &amp; Approvals</span><div class="footer-approval-logos"><img src="${APPROVAL_LOGOS.sirim.src}" width="${APPROVAL_LOGOS.sirim.width}" height="${APPROVAL_LOGOS.sirim.height}" loading="lazy" decoding="async" alt="SIRIM certification logo"><img src="${APPROVAL_LOGOS.span.src}" width="${APPROVAL_LOGOS.span.width}" height="${APPROVAL_LOGOS.span.height}" loading="lazy" decoding="async" alt="SPAN approval logo"></div></div>`;
+    return `<div class="footer-approvals"><a class="footer-approvals-label" href="certifications/">Certifications &amp; Approvals</a><div class="footer-approval-logos"><img src="${APPROVAL_LOGOS.sirim.src}" width="${APPROVAL_LOGOS.sirim.width}" height="${APPROVAL_LOGOS.sirim.height}" loading="lazy" decoding="async" alt="SIRIM certification logo"><img src="${APPROVAL_LOGOS.span.src}" width="${APPROVAL_LOGOS.span.width}" height="${APPROVAL_LOGOS.span.height}" loading="lazy" decoding="async" alt="SPAN approval logo"></div></div>`;
   }
 
   function renderShell() {
@@ -545,7 +547,7 @@
     if (!document.documentElement.dataset.staticLocale) target.innerHTML = projectGroups.map((project, projectIndex) => `<section class="project-group" data-project-group="${project.id}" data-reveal>
       <div class="project-group-heading">
         <div><p class="eyebrow eyebrow--dark">${String(projectIndex + 1).padStart(2, "0")} / Project</p><h2>${project.title}</h2></div>
-        <p>Original WINKO project photo sequence.</p>
+        <p>Completed WINKO installations and project imagery.</p>
       </div>
       <div class="project-group-grid">${project.images.map((file, imageIndex) => `<button class="project-photo" type="button" data-project-image data-project-id="${project.id}" data-project-index="${imageIndex}" aria-label="${translate("Open project image")} — ${project.title} ${imageIndex + 1}"><img src="${imagePath(file)}" ${imageAttributes(imagePath(file))} loading="lazy" decoding="async" alt="${project.title} — ${translate("project image")} ${imageIndex + 1}"></button>`).join("")}</div>
     </section>`).join("");
@@ -591,13 +593,19 @@
         if (form.dataset.submitting === "true" || !form.reportValidity()) return;
         form.dataset.submitting = "true";
         const submit = form.querySelector('[type="submit"]'); if (submit) submit.disabled = true;
-        const data = new FormData(form), locale = currentLanguage();
-        const subjectLead = locale === "zh" ? "WINKO 报价申请" : locale === "ms" ? "Permohonan sebut harga WINKO" : "WINKO quotation request";
-        const fields = [...form.querySelectorAll("[name]")].filter((field) => field.type !== "submit" && String(field.value || "").trim());
-        const body = fields.map((field) => `${translate(field.dataset.formLabel || field.name, locale)}: ${String(field.value).trim()}`).join("\n");
-        const subject = `${subjectLead}${data.get("company") ? ` — ${data.get("company")}` : ""}`;
-        const status = form.querySelector("[data-form-status]"); if (status) status.textContent = translate("Your email application should open with the quotation details. You can also email sales@winko.my directly.", locale);
-        window.location.href = `mailto:${EMAIL}?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(body)}`;
+        const locale = currentLanguage();
+        const status = form.querySelector("[data-form-status]");
+        const endpoint = form.dataset.endpoint || FORM_ENDPOINT;
+        if (!endpoint) {
+          if (status) status.textContent = translate("The enquiry form is ready for connection to WINKO’s secure form endpoint. You can also contact sales@winko.my or WhatsApp WINKO directly.", locale);
+          form.dataset.submitting = "false";
+          if (submit) submit.disabled = false;
+          return;
+        }
+        fetch(endpoint, { method: "POST", body: new FormData(form), headers: { Accept: "application/json" } })
+          .then((response) => { if (!response.ok) throw new Error(`Enquiry request failed: ${response.status}`); if (status) status.textContent = translate("Your enquiry has been sent to WINKO.", locale); form.reset(); })
+          .catch(() => { if (status) status.textContent = translate("We could not send the enquiry right now. Please contact sales@winko.my or WhatsApp WINKO directly.", locale); })
+          .finally(() => { form.dataset.submitting = "false"; if (submit) submit.disabled = false; });
       });
     });
   }
