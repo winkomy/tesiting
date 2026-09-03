@@ -4,6 +4,7 @@
   const LOGO = "index_html_files/winko-logo-header-approved.png?v=20260831-logo1";
   const HEADER_LOGO = LOGO;
   const WHATSAPP = "https://wa.me/60105161368";
+  const FACEBOOK_URL = "https://www.facebook.com/people/WINKO-Malaysia/61585027254023/";
   const PHONE = "+603-8727 7540";
   const EMAIL = "sales@winko.my";
   // TODO: Set this to WINKO's secure enquiry POST endpoint before launch.
@@ -236,11 +237,15 @@
 
   function footerTemplate() {
     return `<footer class="site-footer"><div class="container footer-main">
-      <div class="footer-brand"><a class="footer-wordmark" href="index.html" aria-label="WINKO home"><img class="site-logo" src="${LOGO}" width="126" height="62" alt="WINKO"></a><p>Reliable. Durable. Sustainable.</p></div>
+      <div class="footer-brand"><a class="footer-wordmark" href="index.html" aria-label="WINKO home"><img class="site-logo" src="${LOGO}" width="126" height="62" alt="WINKO"></a><p>Reliable. Durable. Sustainable.</p>${facebookLinkMarkup()}</div>
       <div class="footer-col"><h3>Explore</h3><a href="about.html">About Us</a><a href="products.html">Products</a><a href="services.html">Services</a><a href="project.html">Projects</a><a href="news.html">News</a></div>
       <div class="footer-col"><h3>Contact</h3><a href="contact.html">GET FREE QUOTATION</a><a href="tel:+60387277540">${PHONE}</a><a href="mailto:${EMAIL}">${EMAIL}</a><a href="${WHATSAPP}" target="_blank" rel="noopener">WhatsApp</a></div>
       <div class="footer-contact"><h3>Jutarama Industries (M) Sdn Bhd</h3><p>${ADDRESS}</p>${footerApprovalBlock()}</div>
     </div><div class="container footer-bottom"><span>© 2026 Jutarama Industries (M) Sdn Bhd 200601030104(749861-V). All rights reserved.</span><span>Reliable. Durable. Sustainable.</span></div></footer>`;
+  }
+
+  function facebookLinkMarkup() {
+    return `<a class="footer-social-link" href="${FACEBOOK_URL}" target="_blank" rel="noopener noreferrer" aria-label="WINKO Malaysia on Facebook"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M13.5 22v-8h2.7l.4-3h-3.1V9.1c0-.9.3-1.6 1.6-1.6h1.7V4.8c-.3 0-1.3-.1-2.4-.1-2.4 0-4 1.5-4 4.1V11H8v3h2.4v8h3.1Z"/></svg><span class="sr-only">WINKO Malaysia on Facebook</span></a>`;
   }
 
   function footerApprovalBlock() {
@@ -650,6 +655,18 @@
   }
 
   function addUtilityLinks() {
+    document.querySelectorAll(".footer-brand").forEach((brand) => {
+      if (brand.querySelector(".footer-social-link")) return;
+      const tagline = brand.querySelector("p");
+      const link = document.createElement("a");
+      link.className = "footer-social-link";
+      link.href = FACEBOOK_URL;
+      link.target = "_blank";
+      link.rel = "noopener noreferrer";
+      link.setAttribute("aria-label", "WINKO Malaysia on Facebook");
+      link.innerHTML = `<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M13.5 22v-8h2.7l.4-3h-3.1V9.1c0-.9.3-1.6 1.6-1.6h1.7V4.8c-.3 0-1.3-.1-2.4-.1-2.4 0-4 1.5-4 4.1V11H8v3h2.4v8h3.1Z"/></svg><span class="sr-only">WINKO Malaysia on Facebook</span>`;
+      (tagline || brand).insertAdjacentElement("afterend", link);
+    });
     if (!document.querySelector(".whatsapp-float")) { const whatsapp = document.createElement("a"); whatsapp.className = "whatsapp-float"; whatsapp.href = WHATSAPP; whatsapp.target = "_blank"; whatsapp.rel = "noopener"; whatsapp.setAttribute("aria-label", "Chat with WINKO on WhatsApp"); whatsapp.innerHTML = `<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M20.5 3.5A11.8 11.8 0 0 0 12.1 0C5.5 0 .2 5.3.2 11.9c0 2.1.5 4.1 1.5 5.9L.1 24l6.4-1.7a11.8 11.8 0 0 0 5.6 1.4h.1c6.6 0 11.9-5.3 11.9-11.9 0-3.2-1.3-6.1-3.6-8.3ZM12.2 21.7h-.1a9.8 9.8 0 0 1-5-1.4l-.4-.2-3.8 1 1-3.7-.2-.4a9.8 9.8 0 0 1-1.5-5.2C2.2 6.4 6.7 2 12.2 2c2.7 0 5.1 1 7 2.9s2.9 4.3 2.9 7c0 5.5-4.5 9.8-9.9 9.8Zm5.4-7.4c-.3-.2-1.8-.9-2.1-1-.3-.1-.5-.2-.7.2-.2.3-.8 1-1 1.2-.2.2-.4.2-.7.1-.3-.2-1.3-.5-2.5-1.6-.9-.8-1.6-1.8-1.8-2.1-.2-.3 0-.5.1-.7l.5-.6c.2-.2.2-.4.3-.6.1-.2 0-.5-.1-.7-.1-.2-.7-1.7-1-2.3-.3-.6-.5-.5-.7-.5h-.6c-.2 0-.6.1-.9.4-.3.3-1.1 1.1-1.1 2.6s1.1 3 1.2 3.2c.2.2 2.2 3.4 5.4 4.8.8.3 1.4.5 1.8.6.8.3 1.5.2 2 .1.6-.1 1.8-.7 2-1.4.3-.7.3-1.3.2-1.4-.1-.1-.3-.2-.6-.4Z"/></svg><span class="sr-only">Chat with WINKO</span>`; document.body.appendChild(whatsapp); }
     if (!document.querySelector(".back-to-top")) { const button = document.createElement("button"); button.className = "back-to-top"; button.type = "button"; button.setAttribute("aria-label", "Back to top"); button.textContent = "↑"; button.addEventListener("click", () => window.scrollTo({ top: 0, behavior: reducedMotion ? "auto" : "smooth" })); document.body.appendChild(button); window.addEventListener("scroll", () => button.classList.toggle("is-visible", window.scrollY > 700), { passive: true }); }
   }
