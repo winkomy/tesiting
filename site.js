@@ -297,6 +297,42 @@
   }
 
   function setupHeroTank3D() { if (!document.querySelector("[data-hero-tank-stage]")) return; const start = () => window.WINKO3D?.initHeroStages?.(); if (window.WINKO3D) start(); else window.addEventListener("winko:3d-ready", start, { once: true }); }
+  function setupHomepageVideo() {
+    const video = document.querySelector("[data-homepage-video]");
+    if (!video) return;
+    const soundButton = document.querySelector("[data-homepage-video-sound]");
+    const showSoundFallback = () => { if (soundButton) soundButton.hidden = false; };
+    const removeInteractionUnlock = () => {
+      document.removeEventListener("pointerdown", tryAutoplayWithSound);
+      document.removeEventListener("keydown", tryAutoplayWithSound);
+    };
+    const startMutedFallback = () => {
+      video.muted = true;
+      try {
+        const fallbackPromise = video.play();
+        if (fallbackPromise && typeof fallbackPromise.catch === "function") fallbackPromise.catch(() => {});
+      } catch (error) {}
+      showSoundFallback();
+    };
+    const tryAutoplayWithSound = () => {
+      video.muted = false;
+      video.volume = 1;
+      try {
+        const playPromise = video.play();
+        if (playPromise && typeof playPromise.then === "function") playPromise.then(() => { if (soundButton) soundButton.hidden = true; removeInteractionUnlock(); }).catch(startMutedFallback);
+      } catch (error) { startMutedFallback(); }
+    };
+    video.addEventListener("loadedmetadata", tryAutoplayWithSound, { once: true });
+    document.addEventListener("pointerdown", tryAutoplayWithSound);
+    document.addEventListener("keydown", tryAutoplayWithSound);
+    tryAutoplayWithSound();
+    soundButton?.addEventListener("click", () => {
+      video.muted = false;
+      video.volume = 1;
+      const playPromise = video.play();
+      if (playPromise && typeof playPromise.then === "function") playPromise.then(() => { soundButton.hidden = true; removeInteractionUnlock(); }).catch(showSoundFallback);
+    });
+  }
   function setupTankAssembly3D() { if (!document.querySelector("[data-assembly-tank-stage]")) return; const start = () => window.WINKO3D?.initAssemblyStages?.(); if (window.WINKO3D) start(); else window.addEventListener("winko:3d-ready", start, { once: true }); }
   function apply3DLocale(locale) {
     const selected = I18N.threeD[locale] ? locale : "en";
@@ -673,5 +709,5 @@
 
   function ensureCanonical() { updateMetadata(currentLanguage()); }
 
-  protectStagingIndexing(); renderShell(); setupNavigation(); setupReveal(); setupCounters(); setupHeroTank3D(); setupTankAssembly3D(); setupProductSwitcher(); setupAssemblyFallback(); setupNewsHub(); setupNewsArticle(); setupNewsFilters(); setupProjectGallery(); setupForms(); setupProductDetail(); addUtilityLinks(); setupSiteLanguage(); setupMobileLanguagePrompt(); ensureCanonical();
+  protectStagingIndexing(); renderShell(); setupNavigation(); setupReveal(); setupCounters(); setupHeroTank3D(); setupHomepageVideo(); setupTankAssembly3D(); setupProductSwitcher(); setupAssemblyFallback(); setupNewsHub(); setupNewsArticle(); setupNewsFilters(); setupProjectGallery(); setupForms(); setupProductDetail(); addUtilityLinks(); setupSiteLanguage(); setupMobileLanguagePrompt(); ensureCanonical();
 })();
