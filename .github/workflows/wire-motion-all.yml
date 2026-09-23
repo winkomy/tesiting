@@ -1,0 +1,58 @@
+name: Wire WINKO motion layer across site
+
+on:
+  push:
+    branches:
+      - feat/motion-stack
+    paths:
+      - .github/workflows/wire-motion-all.yml
+
+permissions:
+  contents: write
+
+jobs:
+  wire-motion:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Check out feature branch
+        uses: actions/checkout@v4
+        with:
+          ref: feat/motion-stack
+
+      - name: Add motion loader to current site pages
+        shell: bash
+        run: |
+          python - <<'PY'
+          from pathlib import Path
+
+          tag = '<script src="motion.js?v=20260923-motion1" defer></script>'
+          changed = []
+
+          for path in Path('.').rglob('*.html'):
+              if '.git' in path.parts:
+                  continue
+              html = path.read_text(encoding='utf-8', errors='strict')
+              # Only enhance pages in the current shared site architecture.
+              if 'site.js' not in html or tag in html or '</body>' not in html:
+                  continue
+              html = html.replace('</body>', f'{tag}\n</body>', 1)
+              path.write_text(html, encoding='utf-8')
+              changed.append(path.as_posix())
+
+          print(f'Enhanced {len(changed)} page(s).')
+          for item in changed:
+              print(item)
+          PY
+
+      - name: Commit site-wide wiring
+        shell: bash
+        run: |
+          if git diff --quiet -- '*.html' '**/*.html'; then
+            echo "All current pages are already wired."
+            exit 0
+          fi
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add -- '*.html' '**/*.html'
+          git commit -m "feat: enable motion layer across site [skip ci]"
+          git push origin HEAD:feat/motion-stack
