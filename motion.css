@@ -1,0 +1,126 @@
+/* WINKO motion enhancement layer
+   Lenis + GSAP + Vanta + React-Bits-inspired interactions.
+   Loaded only when motion.js is present; the base site remains functional without it. */
+
+html.lenis,
+html.lenis body { height: auto; }
+
+.lenis.lenis-smooth { scroll-behavior: auto !important; }
+.lenis.lenis-smooth [data-lenis-prevent] { overscroll-behavior: contain; }
+.lenis.lenis-stopped { overflow: hidden; }
+.lenis.lenis-scrolling iframe { pointer-events: none; }
+
+html.winko-motion .hero--cinematic {
+  isolation: isolate;
+}
+
+.winko-vanta-layer {
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+  overflow: hidden;
+  pointer-events: none;
+  opacity: .38;
+  -webkit-mask-image: linear-gradient(to bottom, #000 0%, rgba(0,0,0,.92) 58%, transparent 100%);
+  mask-image: linear-gradient(to bottom, #000 0%, rgba(0,0,0,.92) 58%, transparent 100%);
+}
+
+.winko-vanta-layer canvas {
+  width: 100% !important;
+  height: 100% !important;
+}
+
+html.winko-motion .hero--cinematic > .hero-grid-lines {
+  z-index: 1;
+}
+
+html.winko-motion .hero--cinematic > .hero-inner {
+  position: relative;
+  z-index: 2;
+}
+
+/* Let GSAP own the above-the-fold entrance without fighting the site's
+   existing IntersectionObserver reveal class. */
+html.winko-motion .hero-copy[data-reveal],
+html.winko-motion .hero-media[data-reveal] {
+  opacity: 1 !important;
+  transform: none !important;
+}
+
+/* React-Bits-style spotlight surface, implemented in vanilla CSS/JS because
+   the current WINKO site is static HTML rather than React. */
+.winko-spotlight {
+  position: relative;
+  isolation: isolate;
+  --winko-pointer-x: 50%;
+  --winko-pointer-y: 50%;
+}
+
+.winko-spotlight::after {
+  position: absolute;
+  inset: 0;
+  z-index: 5;
+  border-radius: inherit;
+  background: radial-gradient(
+    340px circle at var(--winko-pointer-x) var(--winko-pointer-y),
+    rgba(255, 115, 0, .14),
+    rgba(255, 115, 0, .045) 34%,
+    transparent 68%
+  );
+  content: "";
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity .28s var(--ease, cubic-bezier(.2,.8,.2,1));
+}
+
+.winko-spotlight:hover::after,
+.winko-spotlight:focus-within::after {
+  opacity: 1;
+}
+
+.winko-motion-lift {
+  will-change: transform;
+}
+
+.winko-motion-lift img {
+  will-change: transform;
+  backface-visibility: hidden;
+}
+
+.winko-magnetic {
+  will-change: transform;
+}
+
+/* Small premium accent on interactive product buttons without changing the
+   current WINKO orange/navy visual language. */
+html.winko-motion .product-button,
+html.winko-motion .stage-button,
+html.winko-motion .text-link,
+html.winko-motion .hero-text-link {
+  transform: translateZ(0);
+}
+
+@media (hover: hover) and (pointer: fine) {
+  html.winko-motion .project-card img,
+  html.winko-motion .story-visual > img,
+  html.winko-motion .sustainability-visual > img {
+    transition: filter .35s var(--ease, cubic-bezier(.2,.8,.2,1));
+  }
+
+  html.winko-motion .project-card:hover img,
+  html.winko-motion .story-visual:hover > img,
+  html.winko-motion .sustainability-visual:hover > img {
+    filter: saturate(1.04) contrast(1.025);
+  }
+}
+
+@media (max-width: 900px) {
+  .winko-vanta-layer { opacity: .22; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .winko-vanta-layer { display: none !important; }
+  .winko-spotlight::after { display: none; }
+  .winko-motion-lift,
+  .winko-magnetic { transform: none !important; }
+}
