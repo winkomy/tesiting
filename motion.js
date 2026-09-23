@@ -229,8 +229,10 @@
     hero.prepend(layer);
 
     try {
-      const three = await import(asset("vendor/three.module.js"));
-      window.THREE = window.THREE || three;
+      await loadScript(
+        "https://cdnjs.cloudflare.com/ajax/libs/three.js/r134/three.min.js",
+        () => Boolean(window.THREE?.WebGLRenderer)
+      );
       await loadScript(
         "https://cdn.jsdelivr.net/npm/vanta@0.5.24/dist/vanta.net.min.js",
         () => Boolean(window.VANTA?.NET)
