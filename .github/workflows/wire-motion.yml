@@ -1,0 +1,51 @@
+name: Wire WINKO motion layer
+
+on:
+  push:
+    branches:
+      - feat/motion-stack
+    paths:
+      - .github/workflows/wire-motion.yml
+
+permissions:
+  contents: write
+
+jobs:
+  wire-motion:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Check out feature branch
+        uses: actions/checkout@v4
+        with:
+          ref: feat/motion-stack
+
+      - name: Add motion loader to homepage
+        shell: bash
+        run: |
+          python - <<'PY'
+          from pathlib import Path
+
+          path = Path("index.html")
+          html = path.read_text(encoding="utf-8")
+          tag = '<script src="motion.js?v=20260923-motion1" defer></script>'
+
+          if tag not in html:
+              marker = "</script></body></html>"
+              if marker not in html:
+                  raise SystemExit("Expected index.html closing marker was not found")
+              html = html.replace(marker, f"</script>\n{tag}</body></html>", 1)
+              path.write_text(html, encoding="utf-8")
+          PY
+
+      - name: Commit homepage wiring
+        shell: bash
+        run: |
+          if git diff --quiet -- index.html; then
+            echo "Homepage already wired."
+            exit 0
+          fi
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add index.html
+          git commit -m "feat: enable motion layer on homepage [skip ci]"
+          git push origin HEAD:feat/motion-stack
